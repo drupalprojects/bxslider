@@ -1,6 +1,6 @@
 BxSlider module integrates the bxSlider library (bxslider.com) with Fields.
 
-Why use the bxSlider?
+Why bxSlider?
 
     Fully responsive - will adapt to any device
     Horizontal, vertical, and fade modes
@@ -31,8 +31,7 @@ INSTALLATION
  2. Unzip and put the content of the archive to the sites/all/libraries/bxslider
     (create required directories).
 
-    For example, make attention that the
-    file jquery.bxslider.min.js is accessible by the path
+    For example, note that the file jquery.bxslider.min.js is accessible by the path
     sites/all/libraries/bxslider/jquery.bxslider.min.js.
 
  3. Download and enable this module and dependent modules.
@@ -41,10 +40,12 @@ INSTALLATION
     formatter BxSlider for required images field. Then click to the formatter settings
     for filling BxSlider settings
 
-    For example go to /admin/structure/types/manage/article/display and click 'the gear'
-    at the right side of the page for required image field.
+    For example go to /admin/structure/types/manage/article/display , select a formatter
+    BxSlider for an Images field and click 'the gear' at the right side of the page
+    for required image field.
 
 
-OTHER
+MORE
 
  If needed integration with Views, use BxSlider - Views slideshow integration
+ (https://drupal.org/project/bxslider_views_slideshow)
