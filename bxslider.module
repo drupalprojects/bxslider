@@ -21,8 +21,8 @@ function bxslider_libraries_info() {
     ),
     'files' => array(
       'js' => array(
-//        'jquery.bxslider.min.js',
-        'jquery.bxslider.js',
+        'jquery.bxslider.min.js',
+        // 'jquery.bxslider.js',
       ),
       'css' => array(
         'jquery.bxslider.css',
@@ -556,7 +556,6 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
 
         if ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2') {
           $method2_items .= "case " . $key . ": return '" . $item['slide_pagerCustom'] . "';";
-
         }
 
       }
@@ -618,6 +617,4 @@ function template_process_bxslider(&$vars) {
   if ($vars['settings']['pagerCustom_type'] == 'thumbnail_pager_method1') {
     $vars['settings']['pagerCustom'] = str_replace(array('#', '.'), '', $vars['settings']['pagerCustom']);
   }
-
-
 }
