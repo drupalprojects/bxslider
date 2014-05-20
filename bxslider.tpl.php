@@ -4,15 +4,17 @@
  * Template for BxSlider.
  */
 ?>
-<ul class="bxslider">
-  <?php foreach($items as $item): ?>
-    <li><?php print $item['slide']; ?></li>
-  <?php endforeach; ?>
-</ul>
-<?php if($settings['pagerCustom_type'] == 'thumbnail_pager_method1'): ?>
-  <div id="<?php  print $settings['pagerCustom'] ?>">
-    <?php foreach($items as $key => $item): ?>
-      <a data-slide-index="<?php print $key ?>" href=""><?php print $item['slide_pagerCustom']; ?></a>
+<div id="<?php print $slider_id; ?>">
+  <ul class="bxslider">
+    <?php foreach($items as $item): ?>
+      <li><?php print $item['slide']; ?></li>
     <?php endforeach; ?>
-  </div>
-<?php endif; ?>
+  </ul>
+  <?php if($settings['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method1'): ?>
+    <div id="<?php  print $settings['slider_settings']['pagerCustom'] ?>">
+      <?php foreach($items as $key => $item): ?>
+        <a data-slide-index="<?php print $key ?>" href=""><?php print $item['slide_pagerCustom']; ?></a>
+      <?php endforeach; ?>
+    </div>
+  <?php endif; ?>
+</div>

@@ -2,12 +2,12 @@
   Drupal.behaviors.bxslider = {
     attach: function(context, settings) {
 
-        if(settings.bxslider.buildPager) {
-            settings.bxslider.buildPager = new Function('slideIndex', settings.bxslider.buildPager);
-            settings.bxslider.pagerCustom = null;
+        if(settings.bxslider.slider_settings.buildPager) {
+            settings.bxslider.slider_settings.buildPager = new Function('slideIndex', settings.bxslider.slider_settings.buildPager);
+            settings.bxslider.slider_settings.pagerCustom = null;
         }
 
-        $('.bxslider').bxSlider( settings.bxslider);
+        $('#' + settings.bxslider.slider_id + ' .bxslider', context).bxSlider( settings.bxslider.slider_settings);
     }
   };
 }(jQuery));

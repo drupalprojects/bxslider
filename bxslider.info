@@ -4,6 +4,8 @@ dependencies[] = image
 dependencies[] = libraries (>=2.x)
 dependencies[] = jquery_update
 
+files[] = bxslider.css
+
 version = 7.x-1.x-dev
 core = 7.x
 
