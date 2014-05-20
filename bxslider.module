@@ -433,18 +433,33 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
         'full' => 'full',
         'short' => 'short',
       ),
+      '#states' => array(
+        'enabled' => array(
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
+        ),
+      ),
     );
     $element['pager']['pagerShortSeparator'] = array(
       '#title' => t('pagerShortSeparator'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['pager']['pagerShortSeparator'],
+      '#states' => array(
+        'enabled' => array(
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
+        ),
+      ),
     );
     $element['pager']['pagerSelector'] = array(
       '#title' => t('pagerSelector'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['pager']['pagerSelector'],
+      '#states' => array(
+        'enabled' => array(
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
+        ),
+      ),
     );
     $element['pager']['pagerCustom_type_markup'] = array(
       '#markup' => '<hr>',
@@ -459,6 +474,11 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
         'thumbnail_pager_method2' => 'Thumbnail pager - method 2',
       ),
       '#description' => t('Select a thumbnail pager according to <a href="@method1">Thumbnail pager - method 1</a> or <a href="@method2">Thumbnail pager - method 2</a>.', array('@method1' => url('http://bxslider.com/examples/thumbnail-pager-1'), '@method2' => url('http://bxslider.com/examples/thumbnail-pager-2'))),
+      '#states' => array(
+        'enabled' => array(
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
+        ),
+      ),
     );
     $element['pager']['pagerCustom_image_style'] = array(
       '#title' => t('Custom Pager - Image style'),
@@ -467,6 +487,16 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
       '#empty_option' => t('None (thumbnail)'),
       '#options' => $image_styles,
       '#description' => t('Used only when some the "Custom Pager" option is selected.'),
+      '#states' => array(
+        'enabled' => array(
+          array(
+            array(':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pagerCustom_type]"]' => array('value' => 'thumbnail_pager_method1')),
+            'xor',
+            array(':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pagerCustom_type]"]' => array('value' => 'thumbnail_pager_method2')),
+          ),
+          ':input[name="fields[' . $field['field_name'] . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
+        ),
+      ),
     );
   }
 
@@ -936,14 +966,9 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
 
         if ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method1' || $display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2') {
           // Prepare variables for theme_image_style.
-          $img['style_name'] = $display['settings']['pager']['pagerCustom_image_style'];
+          $img['style_name'] = empty($display['settings']['pager']['pagerCustom_image_style']) ? 'thumbnail' : $display['settings']['pager']['pagerCustom_image_style'];
 
-          if (!empty($display['settings']['pager']['pagerCustom_image_style'])) {
-            $slide_item['slide_pagerCustom'] = theme('image_style', $img);
-          }
-          else {
-            $slide_item['slide_pagerCustom'] = theme('image', $img);
-          }
+          $slide_item['slide_pagerCustom'] = theme('image_style', $img);
 
           if ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2') {
             $method2_items .= "case " . $key . ": return '" . $slide_item['slide_pagerCustom'] . "';";
@@ -988,11 +1013,16 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         $img['alt'] = $item['alt'];
         $img['title'] = $item['title'];
 
-        $slide_item['slide'] = theme('image_style', $img);
+        if (!empty($display['settings']['image_style'])) {
+          $slide_item['slide'] = theme('image_style', $img);
+        }
+        else {
+          $slide_item['slide'] = theme('image', $img);
+        }
         $items[$key] = $slide_item;
 
         // Generate thumbnails.
-        $img['style_name'] = $display['settings']['thumbnail_slider']['thumbnail_style'];
+        $img['style_name'] = empty($display['settings']['thumbnail_slider']['thumbnail_style']) ? 'thumbnail' : $display['settings']['thumbnail_slider']['thumbnail_style'];
 
         $thumbnail_item = array();
         $thumbnail_item['thumbnail'] = theme('image_style', $img);
