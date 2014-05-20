@@ -2,9 +2,6 @@
   Drupal.behaviors.bxslider_ths = {
     attach: function(context, settings) {
 
-
-// http://stackoverflow.com/questions/19326160/bxslider-how-is-it-possible-to-make-thumbnails-like-a-carousel
-
         settings.bxslider_ths.slider_settings.onSlideBefore = function($slideElement, oldIndex, newIndex){
             changeRealThumb(realThumbSlider,newIndex);
 

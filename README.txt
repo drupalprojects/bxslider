@@ -37,8 +37,10 @@ INSTALLATION
  3. Download and enable this module and dependent modules.
 
  4. Select some content type, then select 'Manage display' and select a
-    formatter BxSlider for required images field. Then click to the formatter settings
+    formatter "BxSlider" for required images field. Then click to the formatter settings
     for filling BxSlider settings
+
+    Select the formatter "BxSlider - Thumbnail slider", if needed a carouser thumbnail pager.
 
     For example go to /admin/structure/types/manage/article/display , select a formatter
     BxSlider for an Images field and click 'the gear' at the right side of the page
@@ -46,6 +48,9 @@ INSTALLATION
 
 
 MORE
+
+ For development of a carouser thumbnail pager was used
+ http://stackoverflow.com/questions/19326160/bxslider-how-is-it-possible-to-make-thumbnails-like-a-carousel
 
  If needed integration with Views, use BxSlider - Views slideshow integration
  (https://drupal.org/project/bxslider_views_slideshow)
