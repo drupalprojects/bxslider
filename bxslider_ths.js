@@ -33,7 +33,7 @@
 
         function changeRealThumb(slider, newIndex) {
 
-            var $thumbS = $('#' + settings.bxslider_ths.slider_id + ' .bxslider');
+            var $thumbS = $('#' + settings.bxslider_ths.slider_id + ' .bxslider-ths');
             $thumbS.find('.active').removeClass("active");
             $thumbS.find('li[slideIndex="' + newIndex + '"]').addClass("active");
 
