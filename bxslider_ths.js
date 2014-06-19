@@ -9,12 +9,11 @@
         var realSlider = $('#' + settings.bxslider_ths.slider_id + ' .bxslider').bxSlider(settings.bxslider_ths.slider_settings);
 
         settings.bxslider_ths.thumbnail_slider_settings.onSlideBefore = function($slideElement, oldIndex, newIndex){
-            $('#' + settings.bxslider_ths.slider_id + " ul.bxslider .active").removeClass("active");
-            $slideElement.addClass("active");
+/*            $('#' + settings.bxslider_ths.slider_id + " ul.bxslider .active").removeClass("active");
+            $slideElement.addClass("active");*/
 
         }
         var realThumbSlider = $('#' + settings.bxslider_ths.slider_id + " .bxslider-ths").bxSlider(settings.bxslider_ths.thumbnail_slider_settings);
-
 
         linkRealSliders(realSlider, realThumbSlider);
 
