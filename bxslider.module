@@ -913,6 +913,64 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function bxslider_form_field_ui_display_overview_form_alter(&$form, &$form_state) {
+  $form['#validate'][] = 'bxslider_field_ui_display_overview_form_validate';
+}
+
+/**
+ * Form validation function.
+ *
+ * Change some field's settings to valid data type.
+ */
+function bxslider_field_ui_display_overview_form_validate($form, &$form_state) {
+
+  // Some parameters must be passed to the js as 'int',
+  // but while the form submit they are 'string'. So, it is corrected here.
+  foreach ($form_state['values']['fields'] as $did => $display) {
+    if ($display['type'] == 'bxslider' || $display['type'] == 'bxslider_ths') {
+      $force_int = array(
+        array('general', 'speed'),
+        array('general', 'slideMargin'),
+        array('general', 'startSlide'),
+        array('general', 'adaptiveHeightSpeed'),
+        array('general', 'swipeThreshold'),
+        array('auto', 'pause'),
+        array('auto', 'autoDelay'),
+        array('carousel', 'minSlides'),
+        array('carousel', 'maxSlides'),
+        array('carousel', 'moveSlides'),
+        array('carousel', 'slideWidth'),
+      );
+      if ($display['type'] == 'bxslider_ths') {
+        $force_int[] = array('thumbnail_slider', 'general', 'speed');
+        $force_int[] = array('thumbnail_slider', 'general', 'slideMargin');
+        $force_int[] = array('thumbnail_slider', 'general', 'startSlide');
+        $force_int[] = array(
+          'thumbnail_slider',
+          'general',
+          'adaptiveHeightSpeed',
+        );
+        $force_int[] = array('thumbnail_slider', 'general', 'swipeThreshold');
+        $force_int[] = array('thumbnail_slider', 'auto', 'pause');
+        $force_int[] = array('thumbnail_slider', 'auto', 'autoDelay');
+        $force_int[] = array('thumbnail_slider', 'carousel', 'minSlides');
+        $force_int[] = array('thumbnail_slider', 'carousel', 'maxSlides');
+        $force_int[] = array('thumbnail_slider', 'carousel', 'moveSlides');
+        $force_int[] = array('thumbnail_slider', 'carousel', 'slideWidth');
+      }
+      foreach ($force_int as $param) {
+        if (isset($form_state['values']['fields'][$did]['settings_edit_form']['settings']) && !is_null($form_state['values']['fields'][$did]['settings_edit_form']['settings'])) {
+          $val = intval(drupal_array_get_nested_value($form_state['values']['fields'][$did]['settings_edit_form']['settings'], $param));
+          drupal_array_set_nested_value($form_state['values']['fields'][$did]['settings_edit_form']['settings'], $param, $val, TRUE);
+        }
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_field_formatter_settings_summary().
  */
 function bxslider_field_formatter_settings_summary($field, $instance, $view_mode) {
@@ -1067,7 +1125,7 @@ function bxslider_theme() {
     'bxslider' => array(
       'variables' => array(
         'items' => array(),
-        'settings' => array()
+        'settings' => array(),
       ),
       'template' => 'bxslider',
     ),
@@ -1075,7 +1133,7 @@ function bxslider_theme() {
       'variables' => array(
         'items' => array(),
         'thumbnail_items' => array(),
-        'settings' => array()
+        'settings' => array(),
       ),
       'template' => 'bxslider_ths',
     ),
