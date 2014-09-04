@@ -5,7 +5,7 @@
  */
 ?>
 <div id="<?php print $slider_id; ?>">
-  <ul class="bxslider">
+  <ul class="bxslider" style="display:none">
     <?php foreach($items as $item): ?>
       <li><?php print $item['slide']; ?></li>
     <?php endforeach; ?>

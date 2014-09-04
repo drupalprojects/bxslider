@@ -7,7 +7,7 @@
             settings.bxslider.slider_settings.pagerCustom = null;
         }
 
-        $('#' + settings.bxslider.slider_id + ' .bxslider', context).bxSlider( settings.bxslider.slider_settings);
+        $('#' + settings.bxslider.slider_id + ' .bxslider', context).show().bxSlider( settings.bxslider.slider_settings);
     }
   };
 }(jQuery));

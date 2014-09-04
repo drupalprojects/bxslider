@@ -6,14 +6,14 @@
             changeRealThumb(realThumbSlider,newIndex);
 
         }
-        var realSlider = $('#' + settings.bxslider_ths.slider_id + ' .bxslider').bxSlider(settings.bxslider_ths.slider_settings);
+        var realSlider = $('#' + settings.bxslider_ths.slider_id + ' .bxslider').show().bxSlider(settings.bxslider_ths.slider_settings);
 
         settings.bxslider_ths.thumbnail_slider_settings.onSlideBefore = function($slideElement, oldIndex, newIndex){
 /*            $('#' + settings.bxslider_ths.slider_id + " ul.bxslider .active").removeClass("active");
             $slideElement.addClass("active");*/
 
         }
-        var realThumbSlider = $('#' + settings.bxslider_ths.slider_id + " .bxslider-ths").bxSlider(settings.bxslider_ths.thumbnail_slider_settings);
+        var realThumbSlider = $('#' + settings.bxslider_ths.slider_id + " .bxslider-ths").show().bxSlider(settings.bxslider_ths.thumbnail_slider_settings);
 
         linkRealSliders(realSlider, realThumbSlider);
 
