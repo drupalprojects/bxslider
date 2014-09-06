@@ -31,12 +31,16 @@
 
         function changeRealThumb(slider, newIndex) {
 
-            var $thumbS = $('#' + slider_id + ' .bxslider-ths');
-            $thumbS.find('.active').removeClass("active");
-            $thumbS.find('li[slideIndex="' + newIndex + '"]').addClass("active");
+            var thumbS = $('#' + slider_id + ' .bxslider-ths');
 
-            if(slider.getSlideCount() - newIndex >= settings.bxslider_ths.thumbnail_slider_settings.maxSlides) slider.goToSlide(newIndex);
-            else slider.goToSlide(slider.getSlideCount() - settings.bxslider_ths.thumbnail_slider_settings.maxSlides);
+            thumbS.find('.active').removeClass("active");
+            thumbS.find('li[slideIndex="' + newIndex + '"]').addClass("active");
+
+            var maxSlides = settings.bxslider_ths.thumbnail_slider_settings.maxSlides;
+            var moveSlides = settings.bxslider_ths.thumbnail_slider_settings.moveSlides;
+
+            // Seams that a number from MoveSlides become like a one slide in goToSlide() function.
+            slider.goToSlide( Math.floor( newIndex / maxSlides) * (maxSlides / moveSlides));
         }
 
     }
