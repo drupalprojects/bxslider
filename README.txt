@@ -26,7 +26,7 @@ DEPENDENCIES
 
 INSTALLATION
 
- 1. Download the libraries http://bxslider.com/lib/jquery.bxslider.zip.
+ 1. Download the libraries http://bxslider.com/lib/jquery.bxslider.zip
 
  2. Unzip and put the content of the archive to the sites/all/libraries/bxslider
     (create required directories).

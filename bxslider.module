@@ -1086,7 +1086,7 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         $thumbnail_item['thumbnail'] = theme('image_style', $img);
 
         $thumbnail_style_path = image_style_path($display['settings']['thumbnail_slider']['thumbnail_style'], $item['uri']);
-        $thumbnail_parameters = getimagesize($thumbnail_style_path);
+        $thumbnail_parameters = @getimagesize($thumbnail_style_path);
 
         // Prepare variables for theme_image_style.
         $thumbnail_item['thumbnail_item']['path'] = $thumbnail_style_path;
