@@ -929,7 +929,7 @@ function bxslider_field_ui_display_overview_form_validate($form, &$form_state) {
   // Some parameters must be passed to the js as 'int',
   // but while the form submit they are 'string'. So, it is corrected here.
   foreach ($form_state['values']['fields'] as $did => $display) {
-    if ($display['type'] == 'bxslider' || $display['type'] == 'bxslider_ths') {
+    if (isset($display['type']) && ($display['type'] == 'bxslider' || $display['type'] == 'bxslider_ths')) {
       $force_int = array(
         array('general', 'speed'),
         array('general', 'slideMargin'),
