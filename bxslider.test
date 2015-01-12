@@ -73,4 +73,3 @@ class BxsliderTestCase extends DrupalWebTestCase {
   }
 
 }
-
