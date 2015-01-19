@@ -1,13 +1,17 @@
-(function($) {
-  Drupal.behaviors.bxslider = {
-    attach: function(context, settings) {
+(function ($) {
+    Drupal.behaviors.bxslider = {
+        attach: function (context, settings) {
 
-        if(settings.bxslider.slider_settings.buildPager) {
-            settings.bxslider.slider_settings.buildPager = new Function('slideIndex', settings.bxslider.slider_settings.buildPager);
-            settings.bxslider.slider_settings.pagerCustom = null;
+            if (!settings.bxslider) {
+                return;
+            }
+            for (var slider_id in settings.bxslider) {
+                if (settings.bxslider[slider_id].slider_settings.buildPager) {
+                    settings.bxslider[slider_id].slider_settings.buildPager = new Function('slideIndex', settings.bxslider.slider_settings.buildPager);
+                    settings.bxslider[slider_id].slider_settings.pagerCustom = null;
+                }
+                $('#' + slider_id + ' .bxslider', context).show().bxSlider(settings.bxslider[slider_id].slider_settings);
+            }
         }
-
-        $('#' + settings.bxslider.slider_id + ' .bxslider', context).show().bxSlider( settings.bxslider.slider_settings);
-    }
-  };
+    };
 }(jQuery));

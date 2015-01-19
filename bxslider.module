@@ -1152,7 +1152,7 @@ function template_process_bxslider(&$vars) {
   // JavaScript settings.
   $js_settings = $vars['settings'];
 
-  drupal_add_js(array('bxslider' => $js_settings), 'setting');
+  drupal_add_js(array('bxslider' => array($vars['slider_id'] => $js_settings)), 'setting');
 
   drupal_add_js(drupal_get_path('module', 'bxslider') . '/bxslider.js', array('type' => 'file', 'scope' => 'footer'));
 
