@@ -1,28 +1,31 @@
 (function($) {
   Drupal.behaviors.bxslider_ths = {
     attach: function(context, settings) {
-
-        var slider_id = settings.bxslider_ths.slider_id;
-
-        settings.bxslider_ths.slider_settings.onSlideBefore = function($slideElement, oldIndex, newIndex){
-            changeRealThumb(realThumbSlider,newIndex);
-
+        if (!settings.bxslider_ths) {
+            return;
         }
-        var realSlider = $('#' + slider_id + ' .bxslider').show().bxSlider(settings.bxslider_ths.slider_settings);
+        for (var slider_id in settings.bxslider_ths) {
 
-        var realThumbSlider = $('#' + slider_id + " .bxslider-ths").show().bxSlider(settings.bxslider_ths.thumbnail_slider_settings);
+            settings.bxslider_ths[slider_id].slider_settings.onSlideBefore = function ($slideElement, oldIndex, newIndex) {
+                changeRealThumb(realThumbSlider, newIndex);
 
-        linkRealSliders(realSlider, realThumbSlider);
+            }
+            var realSlider = $('#' + slider_id + ' .bxslider').show().bxSlider(settings.bxslider_ths[slider_id].slider_settings);
 
-        $('#' + slider_id + ' .bxslider-ths').find('li[slideIndex="0"]').addClass("active");
+            var realThumbSlider = $('#' + slider_id + " .bxslider-ths").show().bxSlider(settings.bxslider_ths[slider_id].thumbnail_slider_settings);
 
-        if($('#' + slider_id + " .bxslider-ths li").length <= settings.bxslider_ths.thumbnail_slider_settings.maxSlides) {
-            $('#' + slider_id + " .bxslider-ths .bx-next").hide();
+            linkRealSliders(realSlider, realThumbSlider);
+
+            $('#' + slider_id + ' .bxslider-ths').find('li[slideIndex="0"]').addClass("active");
+
+            if ($('#' + slider_id + " .bxslider-ths li").length <= settings.bxslider_ths[slider_id].thumbnail_slider_settings.maxSlides) {
+                $('#' + slider_id + " .bxslider-ths .bx-next").hide();
+            }
         }
 
-        function linkRealSliders(bigS, thumbS){
+        function linkRealSliders(bigS, thumbS) {
 
-            $('#' + slider_id + " ul.bxslider-ths").on("click", "a", function(event) {
+            $('#' + slider_id + " ul.bxslider-ths").on("click", "a", function (event) {
                 event.preventDefault();
                 var newIndex = $(this).parent().attr("slideIndex");
                 bigS.goToSlide(newIndex);
@@ -36,13 +39,12 @@
             thumbS.find('.active').removeClass("active");
             thumbS.find('li[slideIndex="' + newIndex + '"]').addClass("active");
 
-            var maxSlides = settings.bxslider_ths.thumbnail_slider_settings.maxSlides;
-            var moveSlides = settings.bxslider_ths.thumbnail_slider_settings.moveSlides;
+            var maxSlides = settings.bxslider_ths[slider_id].thumbnail_slider_settings.maxSlides;
+            var moveSlides = settings.bxslider_ths[slider_id].thumbnail_slider_settings.moveSlides;
 
             // Seams that a number from MoveSlides become like a one slide in goToSlide() function.
-            slider.goToSlide( Math.floor( newIndex / maxSlides) * (maxSlides / moveSlides));
+            slider.goToSlide(Math.floor(newIndex / maxSlides) * (maxSlides / moveSlides));
         }
-
     }
   };
 }(jQuery));
