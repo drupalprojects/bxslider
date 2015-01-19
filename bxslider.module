@@ -1022,7 +1022,7 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
           $slide_item['slide'] = theme('image', $img);
         }
 
-        if ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method1' || $display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2') {
+        if (isset($display['settings']['pager']['pagerCustom_type']) && ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method1' || $display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2')) {
           // Prepare variables for theme_image_style.
           $img['style_name'] = empty($display['settings']['pager']['pagerCustom_image_style']) ? 'thumbnail' : $display['settings']['pager']['pagerCustom_image_style'];
 
@@ -1036,12 +1036,12 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         $items[$key] = $slide_item;
       }
 
-      if ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method1') {
+      if (isset($display['settings']['pager']['pagerCustom_type']) && $display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method1') {
         $display['settings']['pager']['pagerCustom'] = '#bxslide-pager-th';
       }
 
       $method2 = array();
-      if ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2') {
+      if (isset($display['settings']['pager']['pagerCustom_type']) && $display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2') {
         $method2 = array(
           'buildPager' => "switch(slideIndex){" . $method2_items . "}",
         );
@@ -1156,11 +1156,11 @@ function template_process_bxslider(&$vars) {
 
   drupal_add_js(drupal_get_path('module', 'bxslider') . '/bxslider.js', array('type' => 'file', 'scope' => 'footer'));
 
-  if ($vars['settings']['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method2') {
+  if (isset($vars['settings']['slider_settings']['pagerCustom_type']) && $vars['settings']['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method2') {
     drupal_add_css(drupal_get_path('module', 'bxslider') . '/bxslider_method2.css');
   }
 
-  if ($vars['settings']['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method1') {
+  if (isset($vars['settings']['slider_settings']['pagerCustom_type']) && $vars['settings']['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method1') {
     $vars['settings']['slider_settings']['pagerCustom'] = str_replace(array('#', '.'), '', $vars['settings']['slider_settings']['pagerCustom']);
   }
 }
