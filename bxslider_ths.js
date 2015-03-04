@@ -1,7 +1,7 @@
 (function($) {
   Drupal.behaviors.bxslider_ths = {
     attach: function(context, settings) {
-        if (!settings.bxslider_ths) {
+        if (!settings.bxslider_ths || context == '#cboxLoadedContent') {
             return;
         }
         for (var slider_id in settings.bxslider_ths) {

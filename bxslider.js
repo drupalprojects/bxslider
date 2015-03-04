@@ -2,7 +2,7 @@
     Drupal.behaviors.bxslider = {
         attach: function (context, settings) {
 
-            if (!settings.bxslider) {
+            if (!settings.bxslider || context == '#cboxLoadedContent') {
                 return;
             }
             for (var slider_id in settings.bxslider) {

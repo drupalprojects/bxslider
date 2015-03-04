@@ -137,6 +137,10 @@ function bxslider_field_formatter_info() {
           'moveSlides' => 0,
           'slideWidth' => 0,
         ),
+        'colorbox' => array(
+          'enable' => FALSE,
+          'image_style' => 'large',
+        )
       ),
     ),
     'bxslider_ths' => array(
@@ -253,6 +257,10 @@ function bxslider_field_formatter_info() {
             'slideWidth' => 0,
           ),
         ),
+        'colorbox' => array(
+          'enable' => FALSE,
+          'image_style' => 'large',
+        )
       ),
     ),
   );
@@ -909,6 +917,29 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
     );
   }
 
+  $colorbox_exist = module_exists('colorbox');
+  $element['colorbox'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Colorbox'),
+    '#weight' => 11,
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => ($colorbox_exist) ? '' : t("Please, enable the Colorbox module firstly."),
+  );
+  $element['colorbox']['enable'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Colorbox enable'),
+    '#default_value' => $settings['colorbox']['enable'],
+    '#disabled' => ($colorbox_exist) ? FALSE : TRUE,
+  );
+  $element['colorbox']['image_style'] = array(
+    '#title' => t('Colorbox Image style'),
+    '#type' => 'select',
+    '#default_value' => $settings['colorbox']['image_style'],
+    '#empty_option' => t('None (original image)'),
+    '#options' => $image_styles,
+    '#disabled' => $colorbox_exist ? FALSE : TRUE,
+  );
   return $element;
 }
 
@@ -917,6 +948,7 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
  */
 function bxslider_form_field_ui_display_overview_form_alter(&$form, &$form_state) {
   $form['#validate'][] = 'bxslider_field_ui_display_overview_form_validate';
+  $form['#submit'][] = 'bxslider_field_ui_display_overview_form_submit';
 }
 
 /**
@@ -965,6 +997,21 @@ function bxslider_field_ui_display_overview_form_validate($form, &$form_state) {
           $val = intval(drupal_array_get_nested_value($form_state['values']['fields'][$did]['settings_edit_form']['settings'], $param));
           drupal_array_set_nested_value($form_state['values']['fields'][$did]['settings_edit_form']['settings'], $param, $val, TRUE);
         }
+      }
+    }
+  }
+}
+
+/**
+ * Form submit function.
+ */
+function bxslider_field_ui_display_overview_form_submit($form, &$form_state) {
+
+  foreach ($form_state['values']['fields'] as $did => $display) {
+    if (isset($display['type']) && ($display['type'] == 'bxslider' || $display['type'] == 'bxslider_ths')) {
+      if ($form_state['formatter_settings'][$did]['colorbox']['enable'] && module_exists('colorbox')) {
+        // Set option "Enable Colorbox load" in Colorbox settings.
+        variable_set('colorbox_load', 1);
       }
     }
   }
@@ -1022,6 +1069,11 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
           $slide_item['slide'] = theme('image', $img);
         }
 
+        // If using Colorbox.
+        if($display['settings']['colorbox']['enable']) {
+          $slide_item['slide'] = theme('bxslider_colorbox', array('slide_item' => $slide_item, 'settings' => $display['settings']));
+        }
+
         if (isset($display['settings']['pager']['pagerCustom_type']) && ($display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method1' || $display['settings']['pager']['pagerCustom_type'] == 'thumbnail_pager_method2')) {
           // Prepare variables for theme_image_style.
           $img['style_name'] = empty($display['settings']['pager']['pagerCustom_image_style']) ? 'thumbnail' : $display['settings']['pager']['pagerCustom_image_style'];
@@ -1077,6 +1129,12 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         else {
           $slide_item['slide'] = theme('image', $img);
         }
+
+        // If using Colorbox.
+        if($display['settings']['colorbox']['enable']) {
+          $slide_item['slide'] = theme('bxslider_colorbox', array('slide_item' => $slide_item, 'settings' => $display['settings']));
+        }
+
         $items[$key] = $slide_item;
 
         // Generate thumbnails.
@@ -1137,6 +1195,12 @@ function bxslider_theme() {
       ),
       'template' => 'bxslider_ths',
     ),
+    'bxslider_colorbox' => array(
+      'variables' => array(
+        'slide_item' => array(),
+        'settings' => array(),
+      ),
+    ),
   );
 }
 
@@ -1181,4 +1245,32 @@ function template_process_bxslider_ths(&$vars) {
 
   drupal_add_js(drupal_get_path('module', 'bxslider') . '/bxslider_ths.js', array('type' => 'file', 'scope' => 'footer'));
 
+}
+
+/**
+ * Theme function for integration Colorbox
+ */
+function theme_bxslider_colorbox(&$vars) {
+
+  $slide = $vars['slide_item']['slide'];
+  if($vars['settings']['colorbox']['enable']) {
+    if(!empty($vars['settings']['colorbox']['image_style'])) {
+      $style = image_style_load($vars['settings']['colorbox']['image_style']);
+      $colorbox_style_path = image_style_path($vars['settings']['colorbox']['image_style'], $vars['slide_item']['item']['uri']);
+      image_style_create_derivative($style, $vars['slide_item']['item']['uri'], $colorbox_style_path);
+      $thumbnail_parameters = @getimagesize($colorbox_style_path);
+      $width = $thumbnail_parameters[0];
+      $height = $thumbnail_parameters[1];
+    }
+    else {
+      // Original image.
+      $colorbox_style_path = file_create_url($vars['slide_item']['item']['uri']);
+      $width = $vars['slide_item']['item']['width'];
+      $height = $vars['slide_item']['item']['height'];
+    }
+
+    $slide = '<a class="colorbox-load" href="' . file_create_url($colorbox_style_path) . '?width=' . $width . 'px&height=' . $height . 'px" >' . $slide . "</a>";
+  }
+
+  return $slide;
 }
