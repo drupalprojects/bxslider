@@ -1094,26 +1094,25 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         $slide_item['item'] = $item;
 
         // Prepare variables for theme_image_style.
-        $img = array();
-        $img['path'] = $item['uri'];
-        $img['style_name'] = $display['settings']['image_style'];
-        $img['width'] = $item['width'];
-        $img['height'] = $item['height'];
-        $img['alt'] = $item['alt'];
-        $img['title'] = $item['title'];
+        $img = array(
+          'path' => $item['uri'],
+          'style_name' => $display['settings']['image_style'],
+          'alt' => $item['alt'],
+          'title' => $item['title'],
+        );
 
         if (!empty($display['settings']['image_style'])) {
-          $slide_item['slide'] = theme('image_style', $img);
+          // Here, theme('image_style', ...) isn't used, because there are defined
+          // "height" and "width" attributes and the slider become not responsive.
+          $img['path'] = image_style_url($display['settings']['image_style'], $item['uri']);
         }
-        else {
-          $slide_item['slide'] = theme('image', $img);
-        }
+        $slide_item['slide'] = theme('image', $img);
 
         // If using Colorbox.
         if($display['settings']['colorbox']['enable']) {
           // Used for combination of elements together for a gallery.
           $slide_item['item']['rel'] = $field["id"];
-          
+
           $slide_item['slide'] = theme('bxslider_colorbox', array('slide_item' => $slide_item, 'settings' => $display['settings']));
         }
 
@@ -1157,21 +1156,20 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
 
         $slide_item['item'] = $item;
 
-        // Prepare variables for theme_image_style.
-        $img = array();
-        $img['path'] = $item['uri'];
-        $img['style_name'] = $display['settings']['image_style'];
-        $img['width'] = $item['width'];
-        $img['height'] = $item['height'];
-        $img['alt'] = $item['alt'];
-        $img['title'] = $item['title'];
+        // Prepare variables for theme_image.
+        $img = array(
+          'path' => $item['uri'],
+          'style_name' => $display['settings']['image_style'],
+          'alt' => $item['alt'],
+          'title' => $item['title'],
+        );
 
         if (!empty($display['settings']['image_style'])) {
-          $slide_item['slide'] = theme('image_style', $img);
+          // Here, theme('image_style', ...) isn't used, because there are defined
+          // "height" and "width" attributes and the slider become not responsive.
+          $img['path'] = image_style_url($display['settings']['image_style'], $item['uri']);
         }
-        else {
-          $slide_item['slide'] = theme('image', $img);
-        }
+        $slide_item['slide'] = theme('image', $img);
 
         // If using Colorbox.
         if($display['settings']['colorbox']['enable']) {
@@ -1184,26 +1182,25 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         $items[$key] = $slide_item;
 
         // Generate thumbnails.
-        $img['style_name'] = empty($display['settings']['thumbnail_slider']['thumbnail_style']) ? 'thumbnail' : $display['settings']['thumbnail_slider']['thumbnail_style'];
+        $thumbnail_style = empty($display['settings']['thumbnail_slider']['thumbnail_style']) ? 'thumbnail' : $display['settings']['thumbnail_slider']['thumbnail_style'];
 
         $thumbnail_item = array();
-        $thumbnail_item['thumbnail'] = theme('image_style', $img);
-
-        $thumbnail_style_path = image_style_path($display['settings']['thumbnail_slider']['thumbnail_style'], $item['uri']);
-        $thumbnail_parameters = @getimagesize($thumbnail_style_path);
+        $img['path'] = image_style_url($thumbnail_style, $item['uri']);
+        // Here, theme('image_style', ...) isn't used, because there are defined
+        // "height" and "width" attributes and the slider become not responsive.
+        $thumbnail_item['thumbnail'] = theme('image', $img);
 
         // Prepare variables for theme_image_style.
-        $thumbnail_item['thumbnail_item']['path'] = $thumbnail_style_path;
-        $thumbnail_item['thumbnail_item']['style_name'] = $display['settings']['thumbnail_slider']['thumbnail_style'];
-        $thumbnail_item['thumbnail_item']['width'] = $thumbnail_parameters[0];
-        $thumbnail_item['thumbnail_item']['height'] = $thumbnail_parameters[1];
+        $thumbnail_item['thumbnail_item']['path'] = $img['path'];
+        $thumbnail_item['thumbnail_item']['style_name'] = $thumbnail_style;
         $thumbnail_item['thumbnail_item']['alt'] = $item['alt'];
         $thumbnail_item['thumbnail_item']['title'] = $item['title'];
 
         $thumbnail_items[$key] = $thumbnail_item;
 
-        // Fill the bxslider's parameter "slideWidth" by the thumbnail width.
-        $display['settings']['thumbnail_slider']['carousel']['slideWidth'] = $thumbnail_parameters[0];
+        // Fill the "slideWidth" parameter with the width defined by image's style.
+        $thumbnail_info = @getimagesize($img['path']);
+        $display['settings']['thumbnail_slider']['carousel']['slideWidth'] = $thumbnail_info[0];
       }
 
       $settings['slider_settings'] = array_merge($display['settings']['general'], $display['settings']['pager'], $display['settings']['controls'], $display['settings']['auto'], $display['settings']['carousel']);
