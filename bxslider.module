@@ -140,6 +140,10 @@ function bxslider_field_formatter_info() {
         'colorbox' => array(
           'enable' => FALSE,
           'image_style' => 'large',
+          'slideshow' => FALSE,
+          'slideshow_speed' => 2000,
+          'transition' => 'elastic',
+          'transition_speed' => 350,
         )
       ),
     ),
@@ -260,6 +264,10 @@ function bxslider_field_formatter_info() {
         'colorbox' => array(
           'enable' => FALSE,
           'image_style' => 'large',
+          'slideshow' => FALSE,
+          'slideshow_speed' => 2000,
+          'transition' => 'elastic',
+          'transition_speed' => 350,
         )
       ),
     ),
@@ -940,6 +948,38 @@ function bxslider_field_formatter_settings_form($field, $instance, $view_mode, $
     '#options' => $image_styles,
     '#disabled' => $colorbox_exist ? FALSE : TRUE,
   );
+  $element['colorbox']['slideshow'] = array(
+    '#title' => t('Colorbox slideshow'),
+    '#type' => 'select',
+    '#default_value' => $settings['colorbox']['slideshow'],
+    '#empty_option' => t('No slideshow'),
+    '#options' => array('manual' => 'Manual', 'automatic' => 'Automatic'),
+    '#disabled' => $colorbox_exist ? FALSE : TRUE,
+  );
+  $element['colorbox']['slideshow_speed'] = array(
+    '#title' => t('Colorbox slideshow speed'),
+    '#type' => 'textfield',
+    '#size' => 60,
+    '#default_value' => $settings['colorbox']['slideshow_speed'],
+    '#description' => t("Time between transitions (ms)."),
+    '#disabled' => $colorbox_exist ? FALSE : TRUE,
+  );
+  $element['colorbox']['transition'] = array(
+    '#title' => t('Colorbox transition'),
+    '#type' => 'select',
+    '#default_value' => $settings['colorbox']['transition'],
+    '#empty_option' => t('No transition'),
+    '#options' => array('elastic' => 'Elastic', 'fade' => 'Fade'),
+    '#disabled' => $colorbox_exist ? FALSE : TRUE,
+  );
+  $element['colorbox']['transition_speed'] = array(
+    '#title' => t('Colorbox transition speed'),
+    '#type' => 'textfield',
+    '#size' => 60,
+    '#default_value' => $settings['colorbox']['transition_speed'],
+    '#description' => t("Duration of transition (ms)."),
+    '#disabled' => $colorbox_exist ? FALSE : TRUE,
+  );
   return $element;
 }
 
@@ -1071,6 +1111,9 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
 
         // If using Colorbox.
         if($display['settings']['colorbox']['enable']) {
+          // Used for combination of elements together for a gallery.
+          $slide_item['item']['rel'] = $field["id"];
+          
           $slide_item['slide'] = theme('bxslider_colorbox', array('slide_item' => $slide_item, 'settings' => $display['settings']));
         }
 
@@ -1132,6 +1175,9 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
 
         // If using Colorbox.
         if($display['settings']['colorbox']['enable']) {
+          // Used for combination of elements together for a gallery.
+          $slide_item['item']['rel'] = $field["id"];
+
           $slide_item['slide'] = theme('bxslider_colorbox', array('slide_item' => $slide_item, 'settings' => $display['settings']));
         }
 
@@ -1269,7 +1315,27 @@ function theme_bxslider_colorbox(&$vars) {
       $height = $vars['slide_item']['item']['height'];
     }
 
-    $slide = '<a class="colorbox-load" href="' . file_create_url($colorbox_style_path) . '?width=' . $width . 'px&height=' . $height . 'px" >' . $slide . "</a>";
+    $attributes = [
+      'class' => 'colorbox-load',
+      // Used for combination of elements together for a gallery.
+      'rel' => 'bx-' . $vars['slide_item']['item']['rel'],
+    ];
+    $options = array(
+      'width' => $width,
+      'height' => $height,
+    );
+    if(isset($vars['settings']['colorbox']['slideshow']) && $vars['settings']['colorbox']['slideshow']) {
+      $options["slideshow"] = "true";
+      $options["slideshowAuto"] = $vars['settings']['colorbox']['slideshow'] == 'automatic' ? 'true' : 'false';
+      $options["slideshowSpeed"] = $vars['settings']['colorbox']['slideshow_speed'];
+      $options["transition"] = $vars['settings']['colorbox']['transition'];
+      $options["speed"] = $vars['settings']['colorbox']['transition_speed'];
+    }
+    $slide = l($slide, file_create_url($colorbox_style_path), array(
+      'attributes' => $attributes,
+      'html' => TRUE,
+      'query' => $options,
+    ));
   }
 
   return $slide;
