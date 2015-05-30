@@ -1312,11 +1312,11 @@ function theme_bxslider_colorbox(&$vars) {
       $height = $vars['slide_item']['item']['height'];
     }
 
-    $attributes = [
+    $attributes = array(
       'class' => 'colorbox-load',
       // Used for combination of elements together for a gallery.
       'rel' => 'bx-' . $vars['slide_item']['item']['rel'],
-    ];
+    );
     $options = array(
       'width' => $width,
       'height' => $height,
