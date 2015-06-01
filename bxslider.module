@@ -30,7 +30,7 @@ function bxslider_libraries_info() {
     ),
     'integration files' => array(
       'bxslider' => array(
-        'css' => array('bxslider.css'),
+        'css' => array('css/bxslider.css'),
       ),
     ),
   );
@@ -59,7 +59,7 @@ function bxslider_library() {
         'type' => 'file',
         'media' => 'screen',
       ),
-      $module_path . '/bxslider.css' => array(
+      $module_path . '/css/bxslider.css' => array(
         'type' => 'file',
         'media' => 'screen',
       ),
@@ -1228,7 +1228,7 @@ function bxslider_theme() {
         'items' => array(),
         'settings' => array(),
       ),
-      'template' => 'bxslider',
+      'template' => 'templates/bxslider',
     ),
     'bxslider_ths' => array(
       'variables' => array(
@@ -1236,7 +1236,7 @@ function bxslider_theme() {
         'thumbnail_items' => array(),
         'settings' => array(),
       ),
-      'template' => 'bxslider_ths',
+      'template' => 'templates/bxslider_ths',
     ),
     'bxslider_colorbox' => array(
       'variables' => array(
@@ -1261,10 +1261,11 @@ function template_process_bxslider(&$vars) {
 
   drupal_add_js(array('bxslider' => array($vars['slider_id'] => $js_settings)), 'setting');
 
-  drupal_add_js(drupal_get_path('module', 'bxslider') . '/bxslider.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_css(drupal_get_path('module', 'bxslider') . '/css/bxslider.css');
+  drupal_add_js(drupal_get_path('module', 'bxslider') . '/js/bxslider.js', array('type' => 'file', 'scope' => 'footer'));
 
   if (isset($vars['settings']['slider_settings']['pagerCustom_type']) && $vars['settings']['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method2') {
-    drupal_add_css(drupal_get_path('module', 'bxslider') . '/bxslider_method2.css');
+    drupal_add_css(drupal_get_path('module', 'bxslider') . '/css/bxslider_method2.css');
   }
 
   if (isset($vars['settings']['slider_settings']['pagerCustom_type']) && $vars['settings']['slider_settings']['pagerCustom_type'] == 'thumbnail_pager_method1') {
@@ -1286,7 +1287,8 @@ function template_process_bxslider_ths(&$vars) {
 
   drupal_add_js(array('bxslider_ths' => array($vars['slider_id'] => $js_settings)), 'setting');
 
-  drupal_add_js(drupal_get_path('module', 'bxslider') . '/bxslider_ths.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_css(drupal_get_path('module', 'bxslider') . '/css/bxslider.css');
+  drupal_add_js(drupal_get_path('module', 'bxslider') . '/js/bxslider_ths.js', array('type' => 'file', 'scope' => 'footer'));
 
 }
 
