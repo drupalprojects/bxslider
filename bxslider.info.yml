@@ -1,0 +1,6 @@
+name: BxSlider
+type: module
+description: Integration BxSlider with Field Formaters.
+core: 8.x
+package: Other
+
