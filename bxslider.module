@@ -1199,8 +1199,8 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         $thumbnail_items[$key] = $thumbnail_item;
 
         // Fill the "slideWidth" parameter with the width defined by image's style.
-        $thumbnail_info = @getimagesize($img['path']);
-        $display['settings']['thumbnail_slider']['carousel']['slideWidth'] = $thumbnail_info[0];
+        $thumbnail_info = image_get_info($img['path']);
+        $display['settings']['thumbnail_slider']['carousel']['slideWidth'] = $thumbnail_info['width'];
       }
 
       $settings['slider_settings'] = array_merge($display['settings']['general'], $display['settings']['pager'], $display['settings']['controls'], $display['settings']['auto'], $display['settings']['carousel']);
@@ -1303,9 +1303,9 @@ function theme_bxslider_colorbox(&$vars) {
       $style = image_style_load($vars['settings']['colorbox']['image_style']);
       $colorbox_style_path = image_style_path($vars['settings']['colorbox']['image_style'], $vars['slide_item']['item']['uri']);
       image_style_create_derivative($style, $vars['slide_item']['item']['uri'], $colorbox_style_path);
-      $thumbnail_parameters = @getimagesize($colorbox_style_path);
-      $width = $thumbnail_parameters[0];
-      $height = $thumbnail_parameters[1];
+      $thumbnail_parameters = image_get_info($colorbox_style_path);
+      $width = $thumbnail_parameters['width'];
+      $height = $thumbnail_parameters['height'];
     }
     else {
       // Original image.
