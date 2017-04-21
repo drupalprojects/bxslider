@@ -22,7 +22,7 @@ function bxslider_requirements($phase) {
     $header = fread($js, 64);
     $matches = array();
     if (preg_match('/ v([0-9]+)\.([0-9]+)\.([0-9]+)/', $header, $matches)) {
-      if (intval($matches[1]) == 4 and intval($matches[2]) == 1) {
+      if (intval($matches[1]) == 4) {
         $ok = TRUE;
       }
     }
@@ -30,17 +30,17 @@ function bxslider_requirements($phase) {
     if ($ok) {
       $requirements['real_estate_bxslider'] = array(
         'title' => $t('bxSlider library'),
-        'value' => $t('bxSlider version 4.1.@x is available.', array('@x' => $matches[3])),
+        'value' => $t('bxSlider version 4.@x1.@x2 is available.', array('@x1' => $matches[2], '@x2' => $matches[3])),
         'severity' => REQUIREMENT_OK,
       );
     }
     else {
       $requirements['real_estate_bxslider'] = array(
         'title' => $t('bxSlider library'),
-        'value' => $t("bxSlider library doesn't seem to be available or incorrect version. Required version 4.1.x."),
+        'value' => $t("bxSlider library doesn't seem to be available or incorrect version. Required version 4.x.x."),
         'severity' => REQUIREMENT_ERROR,
         'description' => $t('
-            bxSlider library version 4.1.x is required.<br/>
+            bxSlider library version 4.x.x is required.<br/>
             See the <a href="@help_url">project page</a> for install instructions.<br/>
             Either:
             <ul>
