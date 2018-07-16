@@ -15,11 +15,11 @@ Why bxSlider?
 
 DEPENDENCIES
 
- BxSlider Library - https://github.com/stevenwanderski/bxslider-4/archive/master.zip
+ BxSlider Library - https://github.com/stevenwanderski/bxslider
 
 INSTALLATION
 
- 1. Download the libraries https://github.com/stevenwanderski/bxslider-4/archive/master.zip
+ 1. Download the libraries https://github.com/stevenwanderski/bxslider-4/archive/v4.2.15.zip
 
     Unzip and put the content of the archive to the /libraries/bxslider
     (create required directories).
