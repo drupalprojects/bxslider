@@ -9,25 +9,5 @@
     "source": "https://cgit.drupalcode.org/bxslider"
   },
   "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "stevenwanderski/bxslider",
-        "version": "4.2.15",
-        "type": "drupal-library",
-        "dist": {
-          "url": "https://github.com/stevenwanderski/bxslider-4/archive/v4.2.15.zip",
-          "type": "zip"
-        },
-        "require": {
-          "composer/installers": "^1.2"
-        }
-      }
-    }
-  ],
-  "require": {
-    "stevenwanderski/bxslider": "~4.2.15"
-  }
+  "minimum-stability": "dev"
 }

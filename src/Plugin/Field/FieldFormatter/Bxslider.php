@@ -81,9 +81,9 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return array(
+    return [
       'image_style' => 'large',
-      'general' => array(
+      'general' => [
         'mode' => 'horizontal',
         'speed' => 500,
         'slideMargin' => 0,
@@ -106,8 +106,8 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'oneToOneTouch' => TRUE,
         'preventDefaultSwipeX' => TRUE,
         'preventDefaultSwipeY' => FALSE,
-      ),
-      'pager' => array(
+      ],
+      'pager' => [
         'pager' => TRUE,
         'pagerType' => 'full',
         'pagerShortSeparator' => ' / ',
@@ -115,8 +115,8 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'pagerCustom_type' => 'none',
         'pagerCustom' => 'null',
         'pagerCustom_image_style' => 'thumbnail',
-      ),
-      'controls' => array(
+      ],
+      'controls' => [
         'controls' => TRUE,
         'nextText' => 'Next',
         'prevText' => 'Prev',
@@ -127,23 +127,23 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'stopText' => 'Stop',
         'autoControlsCombine' => FALSE,
         'autoControlsSelector' => '',
-      ),
-      'auto' => array(
+      ],
+      'auto' => [
         'auto' => TRUE,
         'pause' => 4000,
         'autoStart' => TRUE,
         'autoDirection' => 'next',
         'autoHover' => FALSE,
         'autoDelay' => 0,
-      ),
-      'carousel' => array(
+      ],
+      'carousel' => [
         'minSlides' => 1,
         'maxSlides' => 1,
         'moveSlides' => 0,
         'slideWidth' => 0,
-      ),
+      ],
 
-    ) + parent::defaultSettings();
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -156,340 +156,340 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
 
     $image_styles = image_style_options(FALSE);
 
-    $elements['image_style'] = array(
+    $elements['image_style'] = [
       '#title' => t('Image style'),
       '#type' => 'select',
       '#default_value' => $settings['image_style'],
       '#empty_option' => t('None (original image)'),
       '#options' => $image_styles,
-    );
+    ];
 
-    $elements['description'] = array(
-      '#markup' => t('Visit <a href="@field-help" target="_blank">http://bxslider.com/options</a> for more information about bxSlider options.', array('@field-help' => 'http://bxslider.com/options')),
-    );
+    $elements['description'] = [
+      '#markup' => t('Visit <a href="@field-help" target="_blank">http://bxslider.com/options</a> for more information about bxSlider options.', ['@field-help' => 'http://bxslider.com/options']),
+    ];
 
-    $elements['general'] = array(
+    $elements['general'] = [
       '#type' => 'fieldset',
       '#title' => t('General'),
       '#weight' => 1,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['general']['mode'] = array(
+    ];
+    $elements['general']['mode'] = [
       '#title' => t('Mode'),
       '#type' => 'select',
       '#default_value' => $settings['general']['mode'],
-      '#options' => array(
+      '#options' => [
         'horizontal' => 'horizontal',
         'vertical' => 'vertical',
         'fade' => 'fade',
-      ),
-    );
-    $elements['general']['speed'] = array(
+      ],
+    ];
+    $elements['general']['speed'] = [
       '#title' => t('Speed'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['general']['speed'],
-    );
-    $elements['general']['slideMargin'] = array(
+    ];
+    $elements['general']['slideMargin'] = [
       '#title' => t('slideMargin'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['general']['slideMargin'],
-    );
-    $elements['general']['startSlide'] = array(
+    ];
+    $elements['general']['startSlide'] = [
       '#title' => t('startSlide'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['general']['startSlide'],
-    );
-    $elements['general']['randomStart'] = array(
+    ];
+    $elements['general']['randomStart'] = [
       '#type' => 'checkbox',
       '#title' => t('randomStart'),
       '#default_value' => $settings['general']['randomStart'],
-    );
-    $elements['general']['infiniteLoop'] = array(
+    ];
+    $elements['general']['infiniteLoop'] = [
       '#type' => 'checkbox',
       '#title' => t('infiniteLoop'),
       '#default_value' => $settings['general']['infiniteLoop'],
-    );
-    $elements['general']['hideControlOnEnd'] = array(
+    ];
+    $elements['general']['hideControlOnEnd'] = [
       '#type' => 'checkbox',
       '#title' => t('hideControlOnEnd'),
       '#default_value' => $settings['general']['hideControlOnEnd'],
-    );
-    $elements['general']['easing'] = array(
+    ];
+    $elements['general']['easing'] = [
       '#title' => t('easing'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['general']['easing'],
-    );
-    $elements['general']['captions'] = array(
+    ];
+    $elements['general']['captions'] = [
       '#type' => 'checkbox',
       '#title' => t('captions'),
       '#default_value' => $settings['general']['captions'],
-    );
-    $elements['general']['ticker'] = array(
+    ];
+    $elements['general']['ticker'] = [
       '#type' => 'checkbox',
       '#title' => t('ticker'),
       '#default_value' => $settings['general']['ticker'],
-    );
-    $elements['general']['tickerHover'] = array(
+    ];
+    $elements['general']['tickerHover'] = [
       '#type' => 'checkbox',
       '#title' => t('tickerHover'),
       '#default_value' => $settings['general']['tickerHover'],
-    );
-    $elements['general']['adaptiveHeight'] = array(
+    ];
+    $elements['general']['adaptiveHeight'] = [
       '#type' => 'checkbox',
       '#title' => t('adaptiveHeight'),
       '#default_value' => $settings['general']['adaptiveHeight'],
-    );
-    $elements['general']['adaptiveHeightSpeed'] = array(
+    ];
+    $elements['general']['adaptiveHeightSpeed'] = [
       '#title' => t('adaptiveHeightSpeed'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['general']['adaptiveHeightSpeed'],
-    );
-    $elements['general']['video'] = array(
+    ];
+    $elements['general']['video'] = [
       '#type' => 'checkbox',
       '#title' => t('video'),
       '#default_value' => $settings['general']['video'],
-    );
-    $elements['general']['responsive'] = array(
+    ];
+    $elements['general']['responsive'] = [
       '#type' => 'checkbox',
       '#title' => t('responsive'),
       '#default_value' => $settings['general']['responsive'],
-    );
-    $elements['general']['useCSS'] = array(
+    ];
+    $elements['general']['useCSS'] = [
       '#type' => 'checkbox',
       '#title' => t('useCSS'),
       '#default_value' => $settings['general']['useCSS'],
-    );
-    $elements['general']['preloadImages'] = array(
+    ];
+    $elements['general']['preloadImages'] = [
       '#title' => t('preloadImages'),
       '#type' => 'select',
       '#default_value' => $settings['general']['preloadImages'],
-      '#options' => array(
+      '#options' => [
         'all' => 'all',
         'visible' => 'visible',
-      ),
-    );
-    $elements['general']['preloadImages'] = array(
+      ],
+    ];
+    $elements['general']['preloadImages'] = [
       '#type' => 'checkbox',
       '#title' => t('preloadImages'),
       '#default_value' => $settings['general']['preloadImages'],
-    );
-    $elements['general']['swipeThreshold'] = array(
+    ];
+    $elements['general']['swipeThreshold'] = [
       '#title' => t('swipeThreshold'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['general']['swipeThreshold'],
-    );
-    $elements['general']['oneToOneTouch'] = array(
+    ];
+    $elements['general']['oneToOneTouch'] = [
       '#type' => 'checkbox',
       '#title' => t('oneToOneTouch'),
       '#default_value' => $settings['general']['oneToOneTouch'],
-    );
-    $elements['general']['preventDefaultSwipeX'] = array(
+    ];
+    $elements['general']['preventDefaultSwipeX'] = [
       '#type' => 'checkbox',
       '#title' => t('preventDefaultSwipeX'),
       '#default_value' => $settings['general']['preventDefaultSwipeX'],
-    );
-    $elements['general']['preventDefaultSwipeY'] = array(
+    ];
+    $elements['general']['preventDefaultSwipeY'] = [
       '#type' => 'checkbox',
       '#title' => t('preventDefaultSwipeY'),
       '#default_value' => $settings['general']['preventDefaultSwipeY'],
-    );
+    ];
 
-    $elements['pager'] = array(
+    $elements['pager'] = [
       '#type' => 'fieldset',
       '#title' => t('Pager'),
       '#weight' => 2,
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
-    );
-    $elements['pager']['pager'] = array(
+    ];
+    $elements['pager']['pager'] = [
       '#type' => 'checkbox',
       '#title' => t('pager'),
       '#default_value' => $settings['pager']['pager'],
-    );
-    $elements['pager']['pagerType'] = array(
+    ];
+    $elements['pager']['pagerType'] = [
       '#title' => t('pagerType'),
       '#type' => 'select',
       '#default_value' => $settings['pager']['pagerType'],
-      '#options' => array(
+      '#options' => [
         'full' => 'full',
         'short' => 'short',
-      ),
-      '#states' => array(
-        'enabled' => array(
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
-        ),
-      ),
-    );
-    $elements['pager']['pagerShortSeparator'] = array(
+      ],
+      '#states' => [
+        'enabled' => [
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $elements['pager']['pagerShortSeparator'] = [
       '#title' => t('pagerShortSeparator'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['pager']['pagerShortSeparator'],
-      '#states' => array(
-        'enabled' => array(
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
-        ),
-      ),
-    );
-    $elements['pager']['pagerSelector'] = array(
+      '#states' => [
+        'enabled' => [
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $elements['pager']['pagerSelector'] = [
       '#title' => t('pagerSelector'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['pager']['pagerSelector'],
-      '#states' => array(
-        'enabled' => array(
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => array('checked' => TRUE),
-        ),
-      ),
-    );
+      '#states' => [
+        'enabled' => [
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
 
-    $elements['controls'] = array(
+    $elements['controls'] = [
       '#type' => 'fieldset',
       '#title' => t('Controls'),
       '#weight' => 3,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['controls']['controls'] = array(
+    ];
+    $elements['controls']['controls'] = [
       '#type' => 'checkbox',
       '#title' => t('controls'),
       '#default_value' => $settings['controls']['controls'],
-    );
-    $elements['controls']['nextText'] = array(
+    ];
+    $elements['controls']['nextText'] = [
       '#title' => t('nextText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['nextText'],
-    );
-    $elements['controls']['prevText'] = array(
+    ];
+    $elements['controls']['prevText'] = [
       '#title' => t('prevText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['prevText'],
-    );
-    $elements['controls']['nextSelector'] = array(
+    ];
+    $elements['controls']['nextSelector'] = [
       '#title' => t('nextSelector'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['nextSelector'],
-    );
-    $elements['controls']['prevSelector'] = array(
+    ];
+    $elements['controls']['prevSelector'] = [
       '#title' => t('prevSelector'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['prevSelector'],
-    );
-    $elements['controls']['autoControls'] = array(
+    ];
+    $elements['controls']['autoControls'] = [
       '#type' => 'checkbox',
       '#title' => t('autoControls'),
       '#default_value' => $settings['controls']['autoControls'],
-    );
-    $elements['controls']['startText'] = array(
+    ];
+    $elements['controls']['startText'] = [
       '#title' => t('startText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['startText'],
-    );
-    $elements['controls']['stopText'] = array(
+    ];
+    $elements['controls']['stopText'] = [
       '#title' => t('stopText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['stopText'],
-    );
-    $elements['controls']['autoControlsCombine'] = array(
+    ];
+    $elements['controls']['autoControlsCombine'] = [
       '#type' => 'checkbox',
       '#title' => t('Auto'),
       '#default_value' => $settings['controls']['autoControlsCombine'],
-    );
-    $elements['controls']['autoControlsSelector'] = array(
+    ];
+    $elements['controls']['autoControlsSelector'] = [
       '#title' => t('autoControlsSelector'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['controls']['autoControlsSelector'],
-    );
+    ];
 
-    $elements['auto'] = array(
+    $elements['auto'] = [
       '#type' => 'fieldset',
       '#title' => t('Auto'),
       '#weight' => 4,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['auto']['auto'] = array(
+    ];
+    $elements['auto']['auto'] = [
       '#type' => 'checkbox',
       '#title' => t('Auto'),
       '#default_value' => $settings['auto']['auto'],
-    );
-    $elements['auto']['pause'] = array(
+    ];
+    $elements['auto']['pause'] = [
       '#title' => t('pause'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['auto']['pause'],
-    );
-    $elements['auto']['autoStart'] = array(
+    ];
+    $elements['auto']['autoStart'] = [
       '#type' => 'checkbox',
       '#title' => t('autoStart'),
       '#default_value' => $settings['auto']['autoStart'],
-    );
-    $elements['auto']['autoDirection'] = array(
+    ];
+    $elements['auto']['autoDirection'] = [
       '#title' => t('autoDirection'),
       '#type' => 'select',
       '#default_value' => $settings['auto']['autoDirection'],
-      '#options' => array(
+      '#options' => [
         'next' => 'next',
         'prev' => 'prev',
-      ),
-    );
-    $elements['auto']['autoHover'] = array(
+      ],
+    ];
+    $elements['auto']['autoHover'] = [
       '#type' => 'checkbox',
       '#title' => t('autoHover'),
       '#default_value' => $settings['auto']['autoHover'],
-    );
-    $elements['auto']['autoDelay'] = array(
+    ];
+    $elements['auto']['autoDelay'] = [
       '#title' => t('autoDelay'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['auto']['autoDelay'],
-    );
+    ];
 
-    $elements['carousel'] = array(
+    $elements['carousel'] = [
       '#type' => 'fieldset',
       '#title' => t('Carousel'),
       '#weight' => 5,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['carousel']['minSlides'] = array(
+    ];
+    $elements['carousel']['minSlides'] = [
       '#title' => t('minSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['carousel']['minSlides'],
-    );
-    $elements['carousel']['maxSlides'] = array(
+    ];
+    $elements['carousel']['maxSlides'] = [
       '#title' => t('maxSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['carousel']['maxSlides'],
-    );
-    $elements['carousel']['moveSlides'] = array(
+    ];
+    $elements['carousel']['moveSlides'] = [
       '#title' => t('moveSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['carousel']['moveSlides'],
-    );
-    $elements['carousel']['slideWidth'] = array(
+    ];
+    $elements['carousel']['slideWidth'] = [
       '#title' => t('slideWidth'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['carousel']['slideWidth'],
-    );
+    ];
     return $elements;
   }
 
@@ -497,7 +497,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary = array();
+    $summary = [];
 
     $summary[] = t('BxSlider configuration');
 
@@ -508,7 +508,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = array();
+    $elements = [];
     $settings = $this->settings;
     $files = $this->getEntitiesToView($items, $langcode);
 
@@ -526,7 +526,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       $base_cache_tags = $image_style->getCacheTags();
     }
 
-    $rendering_items = array();
+    $rendering_items = [];
     foreach ($files as $delta => $file) {
       $cache_contexts = [];
       if (isset($link_file)) {
@@ -550,15 +550,15 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     $bxslider_settings['image_style'] = $settings['image_style'];
     $bxslider_settings['slider_id'] = $items->getName();
 
-    $element = array(
+    $element = [
       '#theme' => 'bxslider',
       '#items' => $rendering_items,
       '#settings' => $bxslider_settings,
-      '#cache' => array(
+      '#cache' => [
         'tags' => $cache_tags,
         'contexts' => $cache_contexts,
-      ),
-    );
+      ],
+    ];
 
     // Attach library.
     $element['#attached']['library'][] = 'bxslider/jquery.bxslider';

@@ -22,10 +22,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return array(
-      'thumbnail_slider' => array(
+    return [
+      'thumbnail_slider' => [
         'thumbnail_style' => 'thumbnail',
-        'general' => array(
+        'general' => [
           'mode' => 'horizontal',
           'speed' => 500,
           'slideMargin' => 0,
@@ -48,11 +48,11 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
           'oneToOneTouch' => TRUE,
           'preventDefaultSwipeX' => TRUE,
           'preventDefaultSwipeY' => FALSE,
-        ),
-        'pager' => array(
+        ],
+        'pager' => [
           'pager' => FALSE,
-        ),
-        'controls' => array(
+        ],
+        'controls' => [
           'controls' => TRUE,
           'nextText' => 'Next',
           'prevText' => 'Prev',
@@ -63,23 +63,23 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
           'stopText' => 'Stop',
           'autoControlsCombine' => FALSE,
           'autoControlsSelector' => '',
-        ),
-        'auto' => array(
+        ],
+        'auto' => [
           'auto' => FALSE,
           'pause' => 4000,
           'autoStart' => TRUE,
           'autoDirection' => 'next',
           'autoHover' => FALSE,
           'autoDelay' => 0,
-        ),
-        'carousel' => array(
+        ],
+        'carousel' => [
           'minSlides' => 4,
           'maxSlides' => 4,
           'moveSlides' => 1,
           'slideWidth' => 0,
-        ),
-      ),
-    ) + parent::defaultSettings();
+        ],
+      ],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -94,270 +94,270 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
 
     $image_styles = image_style_options(FALSE);
 
-    $elements['thumbnail_slider'] = array(
+    $elements['thumbnail_slider'] = [
       '#type' => 'fieldset',
       '#title' => t('Thumbnail slider'),
       '#weight' => 10,
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
-    );
+    ];
 
-    $elements['thumbnail_slider']['thumbnail_style'] = array(
+    $elements['thumbnail_slider']['thumbnail_style'] = [
       '#title' => t('Image style'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['thumbnail_style'],
       '#empty_option' => t('None (original image)'),
       '#options' => $image_styles,
-    );
+    ];
 
-    $elements['thumbnail_slider']['general'] = array(
+    $elements['thumbnail_slider']['general'] = [
       '#type' => 'fieldset',
       '#title' => t('General'),
       '#weight' => 1,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['thumbnail_slider']['general']['mode'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['mode'] = [
       '#title' => t('Mode'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['general']['mode'],
-      '#options' => array(
+      '#options' => [
         'horizontal' => 'horizontal',
         'fade' => 'fade',
-      ),
-    );
-    $elements['thumbnail_slider']['general']['speed'] = array(
+      ],
+    ];
+    $elements['thumbnail_slider']['general']['speed'] = [
       '#title' => t('Speed'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['speed'],
-    );
-    $elements['thumbnail_slider']['general']['slideMargin'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['slideMargin'] = [
       '#title' => t('slideMargin'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['slideMargin'],
-    );
-    $elements['thumbnail_slider']['general']['startSlide'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['startSlide'] = [
       '#title' => t('startSlide'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['startSlide'],
-    );
-    $elements['thumbnail_slider']['general']['randomStart'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['randomStart'] = [
       '#type' => 'checkbox',
       '#title' => t('randomStart'),
       '#default_value' => $settings['thumbnail_slider']['general']['randomStart'],
-    );
-    $elements['thumbnail_slider']['general']['infiniteLoop'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['infiniteLoop'] = [
       '#type' => 'checkbox',
       '#title' => t('infiniteLoop'),
       '#default_value' => $settings['thumbnail_slider']['general']['infiniteLoop'],
-    );
-    $elements['thumbnail_slider']['general']['hideControlOnEnd'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['hideControlOnEnd'] = [
       '#type' => 'checkbox',
       '#title' => t('hideControlOnEnd'),
       '#default_value' => $settings['thumbnail_slider']['general']['hideControlOnEnd'],
-    );
-    $elements['thumbnail_slider']['general']['easing'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['easing'] = [
       '#title' => t('easing'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['easing'],
-    );
-    $elements['thumbnail_slider']['general']['captions'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['captions'] = [
       '#type' => 'checkbox',
       '#title' => t('captions'),
       '#default_value' => $settings['thumbnail_slider']['general']['captions'],
-    );
-    $elements['thumbnail_slider']['general']['ticker'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['ticker'] = [
       '#type' => 'checkbox',
       '#title' => t('ticker'),
       '#default_value' => $settings['thumbnail_slider']['general']['ticker'],
-    );
-    $elements['thumbnail_slider']['general']['tickerHover'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['tickerHover'] = [
       '#type' => 'checkbox',
       '#title' => t('tickerHover'),
       '#default_value' => $settings['thumbnail_slider']['general']['tickerHover'],
-    );
-    $elements['thumbnail_slider']['general']['adaptiveHeight'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['adaptiveHeight'] = [
       '#type' => 'checkbox',
       '#title' => t('adaptiveHeight'),
       '#default_value' => $settings['thumbnail_slider']['general']['adaptiveHeight'],
-    );
-    $elements['thumbnail_slider']['general']['adaptiveHeightSpeed'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['adaptiveHeightSpeed'] = [
       '#title' => t('adaptiveHeightSpeed'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['adaptiveHeightSpeed'],
-    );
-    $elements['thumbnail_slider']['general']['responsive'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['responsive'] = [
       '#type' => 'checkbox',
       '#title' => t('responsive'),
       '#default_value' => $settings['thumbnail_slider']['general']['responsive'],
-    );
-    $elements['thumbnail_slider']['general']['useCSS'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['useCSS'] = [
       '#type' => 'checkbox',
       '#title' => t('useCSS'),
       '#default_value' => $settings['thumbnail_slider']['general']['useCSS'],
-    );
-    $elements['thumbnail_slider']['general']['preloadImages'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['preloadImages'] = [
       '#title' => t('preloadImages'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['general']['preloadImages'],
-      '#options' => array(
+      '#options' => [
         'all' => 'all',
         'visible' => 'visible',
-      ),
-    );
-    $elements['thumbnail_slider']['general']['preloadImages'] = array(
+      ],
+    ];
+    $elements['thumbnail_slider']['general']['preloadImages'] = [
       '#type' => 'checkbox',
       '#title' => t('preloadImages'),
       '#default_value' => $settings['thumbnail_slider']['general']['preloadImages'],
-    );
-    $elements['thumbnail_slider']['general']['swipeThreshold'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['swipeThreshold'] = [
       '#title' => t('swipeThreshold'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['swipeThreshold'],
-    );
-    $elements['thumbnail_slider']['general']['oneToOneTouch'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['oneToOneTouch'] = [
       '#type' => 'checkbox',
       '#title' => t('oneToOneTouch'),
       '#default_value' => $settings['thumbnail_slider']['general']['oneToOneTouch'],
-    );
-    $elements['thumbnail_slider']['general']['preventDefaultSwipeX'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['preventDefaultSwipeX'] = [
       '#type' => 'checkbox',
       '#title' => t('preventDefaultSwipeX'),
       '#default_value' => $settings['thumbnail_slider']['general']['preventDefaultSwipeX'],
-    );
-    $elements['thumbnail_slider']['general']['preventDefaultSwipeY'] = array(
+    ];
+    $elements['thumbnail_slider']['general']['preventDefaultSwipeY'] = [
       '#type' => 'checkbox',
       '#title' => t('preventDefaultSwipeY'),
       '#default_value' => $settings['thumbnail_slider']['general']['preventDefaultSwipeY'],
-    );
+    ];
 
-    $elements['thumbnail_slider']['pager']['pager'] = array(
+    $elements['thumbnail_slider']['pager']['pager'] = [
       '#type' => 'hidden',
       '#default_value' => $settings['thumbnail_slider']['pager']['pager'],
-    );
+    ];
 
-    $elements['thumbnail_slider']['controls'] = array(
+    $elements['thumbnail_slider']['controls'] = [
       '#type' => 'fieldset',
       '#title' => t('Controls'),
       '#weight' => 3,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['thumbnail_slider']['controls']['controls'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['controls'] = [
       '#type' => 'checkbox',
       '#title' => t('controls'),
       '#default_value' => $settings['thumbnail_slider']['controls']['controls'],
-    );
-    $elements['thumbnail_slider']['controls']['nextText'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['nextText'] = [
       '#title' => t('nextText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['nextText'],
-    );
-    $elements['thumbnail_slider']['controls']['prevText'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['prevText'] = [
       '#title' => t('prevText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['prevText'],
-    );
-    $elements['thumbnail_slider']['controls']['autoControls'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['autoControls'] = [
       '#type' => 'checkbox',
       '#title' => t('autoControls'),
       '#default_value' => $settings['thumbnail_slider']['controls']['autoControls'],
-    );
-    $elements['thumbnail_slider']['controls']['startText'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['startText'] = [
       '#title' => t('startText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['startText'],
-    );
-    $elements['thumbnail_slider']['controls']['stopText'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['stopText'] = [
       '#title' => t('stopText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['stopText'],
-    );
-    $elements['thumbnail_slider']['controls']['autoControlsCombine'] = array(
+    ];
+    $elements['thumbnail_slider']['controls']['autoControlsCombine'] = [
       '#type' => 'checkbox',
       '#title' => t('Auto'),
       '#default_value' => $settings['thumbnail_slider']['controls']['autoControlsCombine'],
-    );
+    ];
 
-    $elements['thumbnail_slider']['auto'] = array(
+    $elements['thumbnail_slider']['auto'] = [
       '#type' => 'fieldset',
       '#title' => t('Auto'),
       '#weight' => 4,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['thumbnail_slider']['auto']['auto'] = array(
+    ];
+    $elements['thumbnail_slider']['auto']['auto'] = [
       '#type' => 'checkbox',
       '#title' => t('Auto'),
       '#default_value' => $settings['thumbnail_slider']['auto']['auto'],
-    );
-    $elements['thumbnail_slider']['auto']['pause'] = array(
+    ];
+    $elements['thumbnail_slider']['auto']['pause'] = [
       '#title' => t('pause'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['auto']['pause'],
-    );
-    $elements['thumbnail_slider']['auto']['autoStart'] = array(
+    ];
+    $elements['thumbnail_slider']['auto']['autoStart'] = [
       '#type' => 'checkbox',
       '#title' => t('autoStart'),
       '#default_value' => $settings['thumbnail_slider']['auto']['autoStart'],
-    );
-    $elements['thumbnail_slider']['auto']['autoDirection'] = array(
+    ];
+    $elements['thumbnail_slider']['auto']['autoDirection'] = [
       '#title' => t('autoDirection'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['auto']['autoDirection'],
-      '#options' => array(
+      '#options' => [
         'next' => 'next',
         'prev' => 'prev',
-      ),
-    );
-    $elements['thumbnail_slider']['auto']['autoHover'] = array(
+      ],
+    ];
+    $elements['thumbnail_slider']['auto']['autoHover'] = [
       '#type' => 'checkbox',
       '#title' => t('autoHover'),
       '#default_value' => $settings['thumbnail_slider']['auto']['autoHover'],
-    );
-    $elements['thumbnail_slider']['auto']['autoDelay'] = array(
+    ];
+    $elements['thumbnail_slider']['auto']['autoDelay'] = [
       '#title' => t('autoDelay'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['auto']['autoDelay'],
-    );
+    ];
 
-    $elements['thumbnail_slider']['carousel'] = array(
+    $elements['thumbnail_slider']['carousel'] = [
       '#type' => 'fieldset',
       '#title' => t('Carousel'),
       '#weight' => 5,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-    );
-    $elements['thumbnail_slider']['carousel']['minSlides'] = array(
+    ];
+    $elements['thumbnail_slider']['carousel']['minSlides'] = [
       '#title' => t('minSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['minSlides'],
-    );
-    $elements['thumbnail_slider']['carousel']['maxSlides'] = array(
+    ];
+    $elements['thumbnail_slider']['carousel']['maxSlides'] = [
       '#title' => t('maxSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['maxSlides'],
-    );
-    $elements['thumbnail_slider']['carousel']['moveSlides'] = array(
+    ];
+    $elements['thumbnail_slider']['carousel']['moveSlides'] = [
       '#title' => t('moveSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['moveSlides'],
-    );
+    ];
 
     return $elements;
   }
@@ -366,7 +366,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary = array();
+    $summary = [];
 
     $summary[] = t('BxSlider (with thumbnail slider) configuration');
 
@@ -379,7 +379,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $parent_elements = parent::viewElements($items, $langcode);
 
-    $elements = array();
+    $elements = [];
     $settings = $this->settings;
     $files = $this->getEntitiesToView($items, $langcode);
 
@@ -397,7 +397,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
       $base_cache_tags = $image_style->getCacheTags();
     }
 
-    $rendering_ths_items = array();
+    $rendering_ths_items = [];
     foreach ($files as $delta => $file) {
       $cache_contexts = [];
       if (isset($link_file)) {
@@ -436,16 +436,16 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     }
     $bxslider_settings['thumbnail_slider']['slideWidth'] = $thumbnail_width;
 
-    $element = array(
+    $element = [
       '#theme' => 'bxslider_ths',
       '#items' => $parent_elements['#items'],
       '#thumbnail_items' => $rendering_ths_items,
       '#settings' => $bxslider_settings,
-      '#cache' => array(
+      '#cache' => [
         'tags' => $cache_tags,
         'contexts' => $cache_contexts,
-      ),
-    );
+      ],
+    ];
 
     // Attach library.
     $element['#attached']['library'][] = 'bxslider/jquery.bxslider_ths';

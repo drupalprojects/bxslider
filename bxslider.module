@@ -27,29 +27,29 @@ function bxslider_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function bxslider_theme($existing, $type, $theme, $path) {
-  return array(
-    'bxslider' => array(
-      'variables' => array(
-        'items' => array(),
-        'settings' => array(),
-      ),
+  return [
+    'bxslider' => [
+      'variables' => [
+        'items' => [],
+        'settings' => [],
+      ],
       'template' => 'bxslider',
-    ),
-    'bxslider_ths' => array(
-      'variables' => array(
-        'items' => array(),
-        'thumbnail_items' => array(),
-        'settings' => array(),
-      ),
+    ],
+    'bxslider_ths' => [
+      'variables' => [
+        'items' => [],
+        'thumbnail_items' => [],
+        'settings' => [],
+      ],
       'template' => 'bxslider_ths',
-    ),
-    'bxslider_colorbox' => array(
-      'variables' => array(
-        'slide_item' => array(),
-        'settings' => array(),
-      ),
-    ),
-  );
+    ],
+    'bxslider_colorbox' => [
+      'variables' => [
+        'slide_item' => [],
+        'settings' => [],
+      ],
+    ],
+  ];
 }
 
 /**
@@ -58,11 +58,11 @@ function bxslider_theme($existing, $type, $theme, $path) {
 function template_preprocess_bxslider(&$variables) {
   foreach ($variables['items'] as $key => $item) {
 
-    $variables['slides'][$key]['image'] = array(
+    $variables['slides'][$key]['image'] = [
     // '#theme' => 'image',.
       '#theme' => 'image_style',
       '#style_name' => $variables['settings']['image_style'],
-    );
+    ];
 
     if (($entity = $item->entity) && empty($item->uri)) {
       $variables['slides'][$key]['image']['#uri'] = $entity->getFileUri();
@@ -78,10 +78,10 @@ function template_preprocess_bxslider(&$variables) {
  */
 function template_preprocess_bxslider_ths(&$variables) {
   foreach ($variables['items'] as $key => $item) {
-    $variables['slides'][$key]['image'] = array(
+    $variables['slides'][$key]['image'] = [
       '#theme' => 'image_style',
       '#style_name' => $variables['settings']['image_style'],
-    );
+    ];
 
     if (($entity = $item->entity) && empty($item->uri)) {
       $variables['slides'][$key]['image']['#uri'] = $entity->getFileUri();
@@ -92,10 +92,10 @@ function template_preprocess_bxslider_ths(&$variables) {
   }
 
   foreach ($variables['thumbnail_items'] as $key => $item) {
-    $variables['thumbnails'][$key]['image'] = array(
+    $variables['thumbnails'][$key]['image'] = [
       '#theme' => 'image_style',
       '#style_name' => $variables['settings']['thumbnail_slider']['thumbnail_style'],
-    );
+    ];
 
     if (($entity = $item->entity) && empty($item->uri)) {
       $variables['thumbnails'][$key]['image']['#uri'] = $entity->getFileUri();

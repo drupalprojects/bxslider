@@ -10,7 +10,7 @@
  */
 function bxslider_requirements($phase) {
   if ($phase != 'runtime') {
-    return array();
+    return [];
   }
 
   $library = \Drupal::service('library.discovery')->getLibraryByName('bxslider', 'bxslider');

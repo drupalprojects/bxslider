@@ -8,26 +8,26 @@
 /**
  * The bxSlider plugin URI.
  */
-define('BXSLIDER_DOWNLOAD_URI', 'https://github.com/stevenwanderski/bxslider-4/archive/master.zip');
+define('BXSLIDER_DOWNLOAD_URI', 'https://github.com/stevenwanderski/bxslider-4/archive/v4.2.15.zip');
 define('BXSLIDER_DOWNLOAD_PREFIX', 'bxslider-');
 
 /**
  * Implements hook_drush_command().
  */
 function bxslider_drush_command() {
-  $items = array();
+  $items = [];
 
   // The key in the $items array is the name of the command.
-  $items['bxslider-plugin'] = array(
+  $items['bxslider-plugin'] = [
     'callback' => 'bxslider_drush_plugin_setup',
     'description' => dt('Download and install the bxSlider plugin.'),
     // No bootstrap.
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
-    'arguments' => array(
+    'arguments' => [
       'path' => dt('Optional. A path where to install the bxSlider plugin. If omitted Drush will use the default Libraries location.'),
-    ),
-    'aliases' => array('bxsliderplugin'),
-  );
+    ],
+    'aliases' => ['bxsliderplugin'],
+  ];
 
   return $items;
 }
@@ -57,7 +57,7 @@ function bxslider_drush_plugin_setup() {
   // Create the path if it does not exist.
   if (!is_dir($path)) {
     drush_op('mkdir', $path);
-    drush_log(dt('Directory @path was created', array('@path' => $path)), 'notice');
+    drush_log(dt('Directory @path was created', ['@path' => $path]), 'notice');
   }
 
   // Set the directory to the download location.
@@ -73,7 +73,7 @@ function bxslider_drush_plugin_setup() {
     if (is_dir($dir_name) || is_dir('bxslider')) {
       drush_delete_dir($dir_name, TRUE);
       drush_delete_dir('bxslider', TRUE);
-      drush_log(dt('A existing bxSlider plugin was deleted from @path', array('@path' => $path)), 'notice');
+      drush_log(dt('A existing bxSlider plugin was deleted from @path', ['@path' => $path]), 'notice');
     }
 
     // Decompress the zip archive.
@@ -87,10 +87,10 @@ function bxslider_drush_plugin_setup() {
   }
 
   if (is_dir($dir_name)) {
-    drush_log(dt('bxSlider plugin has been installed in @path', array('@path' => $path)), 'success');
+    drush_log(dt('bxSlider plugin has been installed in @path', ['@path' => $path]), 'success');
   }
   else {
-    drush_log(dt('Drush was unable to install the bxSlider plugin to @path', array('@path' => $path)), 'error');
+    drush_log(dt('Drush was unable to install the bxSlider plugin to @path', ['@path' => $path]), 'error');
   }
 
   // Set working directory back to the previous working directory.
