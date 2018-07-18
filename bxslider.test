@@ -2,10 +2,12 @@
 
 /**
  * @file
- * Test cases for BxSlider
+ * Test cases for BxSlider.
  */
 
-
+/**
+ * BxsliderTestCase.
+ */
 class BxsliderTestCase extends DrupalWebTestCase {
   protected $adminUser;
   protected $anyUser;

@@ -1,12 +1,9 @@
 name = BxSlider
 description = Integration BxSlider with Field Formaters.
+core = 7.x
+
 dependencies[] = image
 dependencies[] = libraries (>=2.x)
 dependencies[] = jquery_update
 
 files[] = bxslider.test
-
-version = 7.x-1.x-dev
-core = 7.x
-
-

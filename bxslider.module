@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Fields integration with BxSlider
+ * Fields integration with BxSlider.
  */
 
 /**
@@ -15,14 +15,14 @@ function bxslider_libraries_info() {
     'download url' => 'http://bxslider.com/lib/jquery.bxslider.zip',
     'version arguments' => array(
       'file' => 'jquery.bxslider.min.js',
-      // BxSlider v4.x.x
+      // BxSlider v4.x.x.
       'pattern' => '/[b,B]xSlider v(\d+)/',
       'lines' => 2,
     ),
     'files' => array(
       'js' => array(
         'jquery.bxslider.min.js',
-        // 'jquery.bxslider.js',
+        // 'jquery.bxslider.js',.
       ),
       'css' => array(
         'jquery.bxslider.css',
@@ -48,7 +48,7 @@ function bxslider_library() {
   $libraries['bxslider'] = array(
     'title' => 'bxslider',
     'website' => 'http://bxslider.com',
-//    'version' => '4',
+  // 'version' => '4',.
     'js' => array(
       $library_path . '/jquery.bxslider.min.js' => array(
         'scope' => 'footer',
@@ -144,7 +144,7 @@ function bxslider_field_formatter_info() {
           'slideshow_speed' => 2000,
           'transition' => 'elastic',
           'transition_speed' => 350,
-        )
+        ),
       ),
     ),
     'bxslider_ths' => array(
@@ -268,7 +268,7 @@ function bxslider_field_formatter_info() {
           'slideshow_speed' => 2000,
           'transition' => 'elastic',
           'transition_speed' => 350,
-        )
+        ),
       ),
     ),
   );
@@ -1102,14 +1102,15 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         );
 
         if (!empty($display['settings']['image_style'])) {
-          // Here, theme('image_style', ...) isn't used, because there are defined
-          // "height" and "width" attributes and the slider become not responsive.
+          // Here, theme('image_style', ...) isn't used, because there are
+          // defined "height" and "width" attributes and the slider become not
+          // responsive.
           $img['path'] = image_style_url($display['settings']['image_style'], $item['uri']);
         }
         $slide_item['slide'] = theme('image', $img);
 
         // If using Colorbox.
-        if($display['settings']['colorbox']['enable']) {
+        if ($display['settings']['colorbox']['enable']) {
           // Used for combination of elements together for a gallery.
           $slide_item['item']['rel'] = $field["id"];
 
@@ -1165,14 +1166,15 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
         );
 
         if (!empty($display['settings']['image_style'])) {
-          // Here, theme('image_style', ...) isn't used, because there are defined
-          // "height" and "width" attributes and the slider become not responsive.
+          // Here, theme('image_style', ...) isn't used, because there are
+          // defined "height" and "width" attributes and the slider become
+          // not responsive.
           $img['path'] = image_style_url($display['settings']['image_style'], $item['uri']);
         }
         $slide_item['slide'] = theme('image', $img);
 
         // If using Colorbox.
-        if($display['settings']['colorbox']['enable']) {
+        if ($display['settings']['colorbox']['enable']) {
           // Used for combination of elements together for a gallery.
           $slide_item['item']['rel'] = $field["id"];
 
@@ -1198,7 +1200,8 @@ function bxslider_field_formatter_view($entity_type, $entity, $field, $instance,
 
         $thumbnail_items[$key] = $thumbnail_item;
 
-        // Fill the "slideWidth" parameter with the width defined by image's style.
+        // Fill the "slideWidth" parameter with the width defined
+        // by image's style.
         $thumbnail_info = image_get_info($img['path']);
         $display['settings']['thumbnail_slider']['carousel']['slideWidth'] = $thumbnail_info['width'];
       }
@@ -1293,13 +1296,13 @@ function template_process_bxslider_ths(&$vars) {
 }
 
 /**
- * Theme function for integration Colorbox
+ * Theme function for integration Colorbox.
  */
 function theme_bxslider_colorbox(&$vars) {
 
   $slide = $vars['slide_item']['slide'];
-  if($vars['settings']['colorbox']['enable']) {
-    if(!empty($vars['settings']['colorbox']['image_style'])) {
+  if ($vars['settings']['colorbox']['enable']) {
+    if (!empty($vars['settings']['colorbox']['image_style'])) {
       $style = image_style_load($vars['settings']['colorbox']['image_style']);
       $colorbox_style_path = image_style_path($vars['settings']['colorbox']['image_style'], $vars['slide_item']['item']['uri']);
       image_style_create_derivative($style, $vars['slide_item']['item']['uri'], $colorbox_style_path);
@@ -1323,7 +1326,7 @@ function theme_bxslider_colorbox(&$vars) {
       'width' => $width,
       'height' => $height,
     );
-    if(isset($vars['settings']['colorbox']['slideshow']) && $vars['settings']['colorbox']['slideshow']) {
+    if (isset($vars['settings']['colorbox']['slideshow']) && $vars['settings']['colorbox']['slideshow']) {
       $options["slideshow"] = "true";
       $options["slideshowAuto"] = $vars['settings']['colorbox']['slideshow'] == 'automatic' ? 'true' : 'false';
       $options["slideshowSpeed"] = $vars['settings']['colorbox']['slideshow_speed'];
