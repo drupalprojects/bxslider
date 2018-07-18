@@ -1049,7 +1049,7 @@ function bxslider_field_ui_display_overview_form_submit($form, &$form_state) {
 
   foreach ($form_state['values']['fields'] as $did => $display) {
     if (isset($display['type']) && ($display['type'] == 'bxslider' || $display['type'] == 'bxslider_ths')) {
-      if ($form_state['formatter_settings'][$did]['colorbox']['enable'] && module_exists('colorbox')) {
+      if (isset($form_state['formatter_settings']) && $form_state['formatter_settings'][$did]['colorbox']['enable'] && module_exists('colorbox')) {
         // Set option "Enable Colorbox load" in Colorbox settings.
         variable_set('colorbox_load', 1);
       }
