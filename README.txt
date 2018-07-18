@@ -15,7 +15,7 @@ Why bxSlider?
 
 DEPENDENCIES
 
- BxSlider Library - http://bxslider.com/lib/jquery.bxslider.zip
+ BxSlider Library - https://github.com/stevenwanderski/bxslider-4/archive/v4.2.15.zip
 
  jQuery Update - https://drupal.org/project/jquery_update
     - this module is used, because BxSlider libraries require the jQuery library
@@ -26,12 +26,13 @@ DEPENDENCIES
 
 INSTALLATION
 
- 1. Download the libraries http://bxslider.com/lib/jquery.bxslider.zip
+ 1. Download the libraries https://github.com/stevenwanderski/bxslider-4/archive/v4.2.15.zip
 
  2. Unzip and put the content of the archive to the sites/all/libraries/bxslider
-    (create required directories).
+    (create required directories). Only bxslider-4-4.2.15/dist/ directory is needed to be
+    extracted to sites/all/libraries/bxslider directory.
 
-    For example, note that the file jquery.bxslider.min.js is accessible by the path
+    NOTE: the file jquery.bxslider.min.js must be accessible by the path
     sites/all/libraries/bxslider/jquery.bxslider.min.js.
 
  3. Download and enable this module and dependent modules.
