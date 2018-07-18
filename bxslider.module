@@ -58,11 +58,17 @@ function bxslider_theme($existing, $type, $theme, $path) {
 function template_preprocess_bxslider(&$variables) {
   foreach ($variables['items'] as $key => $item) {
 
-    $variables['slides'][$key]['image'] = [
-    // '#theme' => 'image',.
-      '#theme' => 'image_style',
-      '#style_name' => $variables['settings']['image_style'],
-    ];
+    if(!empty($variables['settings']['image_style'])) {
+      $variables['slides'][$key]['image'] = [
+        '#theme' => 'image_style',
+        '#style_name' => $variables['settings']['image_style'],
+      ];
+    }
+    else {
+      $variables['slides'][$key]['image'] = [
+        '#theme' => 'image',
+      ];
+    }
 
     if (($entity = $item->entity) && empty($item->uri)) {
       $variables['slides'][$key]['image']['#uri'] = $entity->getFileUri();
@@ -78,10 +84,18 @@ function template_preprocess_bxslider(&$variables) {
  */
 function template_preprocess_bxslider_ths(&$variables) {
   foreach ($variables['items'] as $key => $item) {
-    $variables['slides'][$key]['image'] = [
-      '#theme' => 'image_style',
-      '#style_name' => $variables['settings']['image_style'],
-    ];
+
+    if(!empty($variables['settings']['image_style'])) {
+      $variables['slides'][$key]['image'] = [
+        '#theme' => 'image_style',
+        '#style_name' => $variables['settings']['image_style'],
+      ];
+    }
+    else {
+      $variables['slides'][$key]['image'] = [
+        '#theme' => 'image',
+      ];
+    }
 
     if (($entity = $item->entity) && empty($item->uri)) {
       $variables['slides'][$key]['image']['#uri'] = $entity->getFileUri();
@@ -92,10 +106,18 @@ function template_preprocess_bxslider_ths(&$variables) {
   }
 
   foreach ($variables['thumbnail_items'] as $key => $item) {
-    $variables['thumbnails'][$key]['image'] = [
-      '#theme' => 'image_style',
-      '#style_name' => $variables['settings']['thumbnail_slider']['thumbnail_style'],
-    ];
+
+    if(!empty($variables['settings']['thumbnail_slider']['thumbnail_style'])) {
+      $variables['thumbnails'][$key]['image'] = [
+        '#theme' => 'image_style',
+        '#style_name' => $variables['settings']['thumbnail_slider']['thumbnail_style'],
+      ];
+    }
+    else {
+      $variables['thumbnails'][$key]['image'] = [
+        '#theme' => 'image',
+      ];
+    }
 
     if (($entity = $item->entity) && empty($item->uri)) {
       $variables['thumbnails'][$key]['image']['#uri'] = $entity->getFileUri();
