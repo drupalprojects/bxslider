@@ -16,7 +16,7 @@ function bxslider_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.bxslider':
       $output = '';
       $output .= '<h3>' . t('About BxSlider') . '</h3>';
-      $output .= '<p>' . t('Integration BxSlider with Field Formaters.') . '</p>';
+      $output .= '<p>' . t('Integration BxSlider with Field Formatter.') . '</p>';
       return $output;
 
     default:
@@ -43,13 +43,6 @@ function bxslider_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'bxslider-thumbnail',
     ],
-    'bxslider_colorbox' => [
-      'variables' => [
-        'slide_item' => [],
-        'settings' => [],
-      ],
-      'template' => 'bxslider-colorbox',
-    ],
   ];
 }
 
@@ -59,7 +52,31 @@ function bxslider_theme($existing, $type, $theme, $path) {
 function template_preprocess_bxslider(&$variables) {
   foreach ($variables['items'] as $key => $item) {
 
-    if(!empty($variables['settings']['image_style'])) {
+    if ($variables['settings']['colorbox']['enable']) {
+
+      // Configure colorbox formatter according to current settings.
+      $colorbox_formatter_settings = [
+        'style_name' => $variables['settings']['image_style'],
+        'colorbox_node_style' => $variables['settings']['image_style'],
+        'colorbox_node_style_first' => $variables['settings']['image_style'],
+        'colorbox_image_style' => $variables['settings']['colorbox']['image_style'],
+        'colorbox_gallery' => $variables['settings']['colorbox']['colorbox_gallery'],
+        'colorbox_gallery_custom' => $variables['settings']['colorbox']['colorbox_gallery_custom'],
+        'colorbox_caption' => $variables['settings']['colorbox']['colorbox_caption'],
+        'colorbox_caption_custom' => $variables['settings']['colorbox']['colorbox_caption_custom'],
+      ];
+
+      // Use Colorbox Formatter theme.
+      $variables['slides'][$key]['image'] = [
+        '#theme' => 'colorbox_formatter',
+        '#item' => $item['item'],
+        '#item_attributes' => $item['item_attributes'],
+        '#entity' => $item['entity'],
+        '#settings' => $colorbox_formatter_settings,
+      ];
+
+    }
+    elseif (!empty($variables['settings']['image_style'])) {
       $variables['slides'][$key]['image'] = [
         '#theme' => 'image_style',
         '#style_name' => $variables['settings']['image_style'],
@@ -71,25 +88,18 @@ function template_preprocess_bxslider(&$variables) {
       ];
     }
 
-    if (($entity = $item->entity) && empty($item->uri)) {
+    if (($entity = $item['item']->entity) && empty($item['item']->uri)) {
       $variables['slides'][$key]['image']['#uri'] = $entity->getFileUri();
     }
     else {
-      $variables['slides'][$key]['image']['#uri'] = $item->uri;
+      $variables['slides'][$key]['image']['#uri'] = $item['item']->uri;
     }
 
-    // If using Colorbox.
-    if ($variables['settings']['colorbox']['enable']) {
-      // Used for combination of elements together for a gallery.
-//      $slide_item['item']['rel'] = $field["id"];
+  }
 
-      $variables['slides'][$key]['image'] = [
-        '#theme' => 'bxslider_colorbox',
-        '#slide_item' => $variables['slides'][$key]['image'],
-        '#settings' => $variables['settings'],
-      ];
-    }
-
+  if ($variables['settings']['colorbox']['enable']) {
+    // Attach Colorbox libraries.
+    \Drupal::service('colorbox.attachment')->attach($variables);
   }
 }
 
@@ -97,31 +107,12 @@ function template_preprocess_bxslider(&$variables) {
  * Preprocess function.
  */
 function template_preprocess_bxslider_ths(&$variables) {
-  foreach ($variables['items'] as $key => $item) {
 
-    if(!empty($variables['settings']['image_style'])) {
-      $variables['slides'][$key]['image'] = [
-        '#theme' => 'image_style',
-        '#style_name' => $variables['settings']['image_style'],
-      ];
-    }
-    else {
-      $variables['slides'][$key]['image'] = [
-        '#theme' => 'image',
-      ];
-    }
-
-    if (($entity = $item->entity) && empty($item->uri)) {
-      $variables['slides'][$key]['image']['#uri'] = $entity->getFileUri();
-    }
-    else {
-      $variables['slides'][$key]['image']['#uri'] = $item->uri;
-    }
-  }
+  template_preprocess_bxslider($variables);
 
   foreach ($variables['thumbnail_items'] as $key => $item) {
 
-    if(!empty($variables['settings']['thumbnail_slider']['thumbnail_style'])) {
+    if (!empty($variables['settings']['thumbnail_slider']['thumbnail_style'])) {
       $variables['thumbnails'][$key]['image'] = [
         '#theme' => 'image_style',
         '#style_name' => $variables['settings']['thumbnail_slider']['thumbnail_style'],
@@ -141,53 +132,4 @@ function template_preprocess_bxslider_ths(&$variables) {
     }
   }
 
-}
-
-/**
- * Preprocess function.
- */
-function template_preprocess_bxslider_colorbox(&$variables) {
-
-  if ($variables['settings']['colorbox']['enable']) {
-    if (!empty($variables['settings']['colorbox']['image_style'])) {
-      $style = Drupal\image\Entity\ImageStyle::load($variables['settings']['colorbox']['image_style']);
-      $colorbox_style_path = $style->buildUrl($variables['slide_item']['#uri']);
-      $style->createDerivative($variables['slide_item']['#uri'], $colorbox_style_path);
-    }
-    else {
-      // Original image.
-      $colorbox_style_path = $variables['slide_item']['#uri'];
-    }
-
-    $variables['attributes'] = array(
-      'class' => 'colorbox-load',
-      // Used for combination of elements together for a gallery.
-      'rel' => 'bx-' . $variables['slide_item']['item']['rel'],
-    );
-
-    // Check first that the file is an image.
-    $image_factory = \Drupal::service('image.factory');
-    $image = $image_factory->get($variables['slide_item']['#uri']);
-    if ($image->isValid()) {
-      $width = $image->getWidth();
-      $height = $image->getHeight();
-    }
-
-    $options = array(
-      'width' => $width,
-      'height' => $height,
-    );
-    if (isset($variables['settings']['colorbox']['slideshow']) && $variables['settings']['colorbox']['slideshow']) {
-      $options["slideshow"] = "true";
-      $options["slideshowAuto"] = $variables['settings']['colorbox']['slideshow'] == 'automatic' ? 'true' : 'false';
-      $options["slideshowSpeed"] = $variables['settings']['colorbox']['slideshow_speed'];
-      $options["transition"] = $variables['settings']['colorbox']['transition'];
-      $options["speed"] = $variables['settings']['colorbox']['transition_speed'];
-    }
-
-    $variables['url'] = \Drupal\Core\Url::fromUri(file_create_url($colorbox_style_path), ['query' => $options]);
-
-    // Attach library.
-    $variables['#attached']['library'][] = 'colorbox/colorbox';
-  }
 }

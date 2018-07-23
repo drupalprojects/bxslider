@@ -82,75 +82,75 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
    */
   public static function defaultSettings() {
     return [
+      'image_style' => 'large',
+      'general' => [
+        'mode' => 'horizontal',
+        'speed' => 500,
+        'slideMargin' => 0,
+        'startSlide' => 0,
+        'randomStart' => FALSE,
+        'infiniteLoop' => TRUE,
+        'hideControlOnEnd' => TRUE,
+        'easing' => '',
+        'captions' => FALSE,
+        'ticker' => FALSE,
+        'tickerHover' => FALSE,
+        'adaptiveHeight' => FALSE,
+        'adaptiveHeightSpeed' => 500,
+        'video' => FALSE,
+        'responsive' => TRUE,
+        'useCSS' => TRUE,
+        'preloadImages' => 'visible',
+        'touchEnabled' => TRUE,
+        'swipeThreshold' => 50,
+        'oneToOneTouch' => TRUE,
+        'preventDefaultSwipeX' => TRUE,
+        'preventDefaultSwipeY' => FALSE,
+      ],
+      'pager' => [
+        'pager' => TRUE,
+        'pagerType' => 'full',
+        'pagerShortSeparator' => ' / ',
+        'pagerSelector' => '',
+        'pagerCustom_type' => 'none',
+        'pagerCustom' => 'null',
+        'pagerCustom_image_style' => 'thumbnail',
+      ],
+      'controls' => [
+        'controls' => TRUE,
+        'nextText' => 'Next',
+        'prevText' => 'Prev',
+        'nextSelector' => '',
+        'prevSelector' => '',
+        'autoControls' => FALSE,
+        'startText' => 'Start',
+        'stopText' => 'Stop',
+        'autoControlsCombine' => FALSE,
+        'autoControlsSelector' => '',
+      ],
+      'auto' => [
+        'auto' => TRUE,
+        'pause' => 4000,
+        'autoStart' => TRUE,
+        'autoDirection' => 'next',
+        'autoHover' => FALSE,
+        'autoDelay' => 0,
+      ],
+      'carousel' => [
+        'minSlides' => 1,
+        'maxSlides' => 1,
+        'moveSlides' => 0,
+        'slideWidth' => 0,
+      ],
+      'colorbox' => [
+        'enable' => FALSE,
         'image_style' => 'large',
-        'general' => [
-          'mode' => 'horizontal',
-          'speed' => 500,
-          'slideMargin' => 0,
-          'startSlide' => 0,
-          'randomStart' => FALSE,
-          'infiniteLoop' => TRUE,
-          'hideControlOnEnd' => TRUE,
-          'easing' => '',
-          'captions' => FALSE,
-          'ticker' => FALSE,
-          'tickerHover' => FALSE,
-          'adaptiveHeight' => FALSE,
-          'adaptiveHeightSpeed' => 500,
-          'video' => FALSE,
-          'responsive' => TRUE,
-          'useCSS' => TRUE,
-          'preloadImages' => 'visible',
-          'touchEnabled' => TRUE,
-          'swipeThreshold' => 50,
-          'oneToOneTouch' => TRUE,
-          'preventDefaultSwipeX' => TRUE,
-          'preventDefaultSwipeY' => FALSE,
-        ],
-        'pager' => [
-          'pager' => TRUE,
-          'pagerType' => 'full',
-          'pagerShortSeparator' => ' / ',
-          'pagerSelector' => '',
-          'pagerCustom_type' => 'none',
-          'pagerCustom' => 'null',
-          'pagerCustom_image_style' => 'thumbnail',
-        ],
-        'controls' => [
-          'controls' => TRUE,
-          'nextText' => 'Next',
-          'prevText' => 'Prev',
-          'nextSelector' => '',
-          'prevSelector' => '',
-          'autoControls' => FALSE,
-          'startText' => 'Start',
-          'stopText' => 'Stop',
-          'autoControlsCombine' => FALSE,
-          'autoControlsSelector' => '',
-        ],
-        'auto' => [
-          'auto' => TRUE,
-          'pause' => 4000,
-          'autoStart' => TRUE,
-          'autoDirection' => 'next',
-          'autoHover' => FALSE,
-          'autoDelay' => 0,
-        ],
-        'carousel' => [
-          'minSlides' => 1,
-          'maxSlides' => 1,
-          'moveSlides' => 0,
-          'slideWidth' => 0,
-        ],
-        'colorbox' => [
-          'enable' => FALSE,
-          'image_style' => 'large',
-          'slideshow' => FALSE,
-          'slideshow_speed' => 2000,
-          'transition' => 'elastic',
-          'transition_speed' => 350,
-        ],
-      ] + parent::defaultSettings();
+        'colorbox_gallery' => 'none',
+        'colorbox_gallery_custom' => '',
+        'colorbox_caption' => 'none',
+        'colorbox_caption_custom' => '',
+      ],
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -498,62 +498,140 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       '#default_value' => $settings['carousel']['slideWidth'],
     ];
 
-    //$colorbox_exist = module_exists('colorbox');
-    $colorbox_exist = true;
-    $elements['colorbox'] = array(
+    // $colorbox_exist = module_exists('colorbox');.
+    $colorbox_exist = \Drupal::moduleHandler()->moduleExists('colorbox');
+    $elements['colorbox'] = [
       '#type' => 'fieldset',
       '#title' => t('Colorbox'),
       '#weight' => 11,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
       '#description' => ($colorbox_exist) ? '' : t("Please, enable the Colorbox module firstly."),
-    );
-    $elements['colorbox']['enable'] = array(
+    ];
+    $elements['colorbox']['enable'] = [
       '#type' => 'checkbox',
       '#title' => t('Colorbox enable'),
       '#default_value' => $settings['colorbox']['enable'],
       '#disabled' => ($colorbox_exist) ? FALSE : TRUE,
-    );
-    $elements['colorbox']['image_style'] = array(
+    ];
+    $elements['colorbox']['image_style'] = [
       '#title' => t('Colorbox Image style'),
       '#type' => 'select',
       '#default_value' => $settings['colorbox']['image_style'],
       '#empty_option' => t('None (original image)'),
       '#options' => $image_styles,
       '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    );
-    $elements['colorbox']['slideshow'] = array(
-      '#title' => t('Colorbox slideshow'),
+    ];
+    $gallery = [
+      'none' => $this->t('No gallery'),
+      'post' => $this->t('Per post gallery'),
+      'page' => $this->t('Per page gallery'),
+      'field_post' => $this->t('Per field in post gallery'),
+      'field_page' => $this->t('Per field in page gallery'),
+      'custom' => $this->t('Custom (with tokens)'),
+    ];
+    $elements['colorbox']['colorbox_gallery'] = [
+      '#title' => $this->t('Gallery (image grouping)'),
       '#type' => 'select',
-      '#default_value' => $settings['colorbox']['slideshow'],
-      '#empty_option' => t('No slideshow'),
-      '#options' => array('manual' => 'Manual', 'automatic' => 'Automatic'),
+      '#default_value' => $this->getSetting('colorbox_gallery'),
+      '#options' => $gallery,
+      '#description' => $this->t('How Colorbox should group the image galleries.'),
       '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    );
-    $elements['colorbox']['slideshow_speed'] = array(
-      '#title' => t('Colorbox slideshow speed'),
+    ];
+    $elements['colorbox']['colorbox_gallery_custom'] = [
+      '#title' => $this->t('Custom gallery'),
       '#type' => 'textfield',
-      '#size' => 60,
-      '#default_value' => $settings['colorbox']['slideshow_speed'],
-      '#description' => t("Time between transitions (ms)."),
+      '#default_value' => $this->getSetting('colorbox_gallery_custom'),
+      '#description' => $this->t('All images on a page with the same gallery value (rel attribute) will be grouped together. It must only contain lowercase letters, numbers, and underscores.'),
+      '#required' => FALSE,
+      '#states' => [
+        'visible' => [
+          ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
+        ],
+      ],
       '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    );
-    $elements['colorbox']['transition'] = array(
-      '#title' => t('Colorbox transition'),
+    ];
+    if (\Drupal::moduleHandler()->moduleExists('token')) {
+      $elements['colorbox']['colorbox_token_gallery'] = [
+        '#type' => 'fieldset',
+        '#title' => t('Replacement patterns'),
+        '#theme' => 'token_tree_link',
+        '#token_types' => [$form['#entity_type'], 'file'],
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
+          ],
+        ],
+        '#disabled' => $colorbox_exist ? FALSE : TRUE,
+      ];
+    }
+    else {
+      $elements['colorbox']['colorbox_token_gallery'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Replacement patterns'),
+        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
+          ],
+        ],
+        '#disabled' => $colorbox_exist ? FALSE : TRUE,
+      ];
+    }
+    $caption = [
+      'none' => $this->t('None'),
+      'auto' => $this->t('Automatic'),
+      'title' => $this->t('Title text'),
+      'alt' => $this->t('Alt text'),
+      'entity_title' => $this->t('Content title'),
+      'custom' => $this->t('Custom (with tokens)'),
+    ];
+    $elements['colorbox']['colorbox_caption'] = [
+      '#title' => $this->t('Caption'),
       '#type' => 'select',
-      '#default_value' => $settings['colorbox']['transition'],
-      '#empty_option' => t('No transition'),
-      '#options' => array('elastic' => 'Elastic', 'fade' => 'Fade'),
+      '#default_value' => $this->getSetting('colorbox_caption'),
+      '#options' => $caption,
+      '#description' => $this->t('Automatic will use the first non-empty value out of the title, the alt text and the content title.'),
       '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    );
-    $elements['colorbox']['transition_speed'] = array(
-      '#title' => t('Colorbox transition speed'),
+    ];
+    $elements['colorbox']['colorbox_caption_custom'] = [
+      '#title' => $this->t('Custom caption'),
       '#type' => 'textfield',
-      '#size' => 60,
-      '#default_value' => $settings['colorbox']['transition_speed'],
-      '#description' => t("Duration of transition (ms)."),
+      '#default_value' => $this->getSetting('colorbox_caption_custom'),
+      '#states' => [
+        'visible' => [
+          ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
+        ],
+      ],
       '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    );
+    ];
+    if (\Drupal::moduleHandler()->moduleExists('token')) {
+      $elements['colorbox']['colorbox_token_caption'] = [
+        '#type' => 'fieldset',
+        '#title' => t('Replacement patterns'),
+        '#theme' => 'token_tree_link',
+        '#token_types' => [$form['#entity_type'], 'file'],
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
+          ],
+        ],
+        '#disabled' => $colorbox_exist ? FALSE : TRUE,
+      ];
+    }
+    else {
+      $elements['colorbox']['colorbox_token_caption'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Replacement patterns'),
+        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+        '#states' => [
+          'visible' => [
+            ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
+          ],
+        ],
+        '#disabled' => $colorbox_exist ? FALSE : TRUE,
+      ];
+    }
 
     return $elements;
   }
@@ -601,8 +679,13 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       }
       $cache_tags = Cache::mergeTags($base_cache_tags, $file->getCacheTags());
 
-      $rendering_items[] = $file->_referringItem;
+      $item = $file->_referringItem;
+      $item_attributes = $item->_attributes;
+      unset($item->_attributes);
 
+      $rendering_items[$delta]['item'] = $item;
+      $rendering_items[$delta]['item_attributes'] = $item_attributes;
+      $rendering_items[$delta]['entity'] = $items->getEntity();
     }
 
     $bxslider_settings = array_merge(
