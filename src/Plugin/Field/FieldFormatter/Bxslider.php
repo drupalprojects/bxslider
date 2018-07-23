@@ -142,7 +142,14 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
           'moveSlides' => 0,
           'slideWidth' => 0,
         ],
-
+        'colorbox' => [
+          'enable' => FALSE,
+          'image_style' => 'large',
+          'slideshow' => FALSE,
+          'slideshow_speed' => 2000,
+          'transition' => 'elastic',
+          'transition_speed' => 350,
+        ],
       ] + parent::defaultSettings();
   }
 
@@ -490,6 +497,64 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       '#size' => 60,
       '#default_value' => $settings['carousel']['slideWidth'],
     ];
+
+    //$colorbox_exist = module_exists('colorbox');
+    $colorbox_exist = true;
+    $elements['colorbox'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Colorbox'),
+      '#weight' => 11,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#description' => ($colorbox_exist) ? '' : t("Please, enable the Colorbox module firstly."),
+    );
+    $elements['colorbox']['enable'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Colorbox enable'),
+      '#default_value' => $settings['colorbox']['enable'],
+      '#disabled' => ($colorbox_exist) ? FALSE : TRUE,
+    );
+    $elements['colorbox']['image_style'] = array(
+      '#title' => t('Colorbox Image style'),
+      '#type' => 'select',
+      '#default_value' => $settings['colorbox']['image_style'],
+      '#empty_option' => t('None (original image)'),
+      '#options' => $image_styles,
+      '#disabled' => $colorbox_exist ? FALSE : TRUE,
+    );
+    $elements['colorbox']['slideshow'] = array(
+      '#title' => t('Colorbox slideshow'),
+      '#type' => 'select',
+      '#default_value' => $settings['colorbox']['slideshow'],
+      '#empty_option' => t('No slideshow'),
+      '#options' => array('manual' => 'Manual', 'automatic' => 'Automatic'),
+      '#disabled' => $colorbox_exist ? FALSE : TRUE,
+    );
+    $elements['colorbox']['slideshow_speed'] = array(
+      '#title' => t('Colorbox slideshow speed'),
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#default_value' => $settings['colorbox']['slideshow_speed'],
+      '#description' => t("Time between transitions (ms)."),
+      '#disabled' => $colorbox_exist ? FALSE : TRUE,
+    );
+    $elements['colorbox']['transition'] = array(
+      '#title' => t('Colorbox transition'),
+      '#type' => 'select',
+      '#default_value' => $settings['colorbox']['transition'],
+      '#empty_option' => t('No transition'),
+      '#options' => array('elastic' => 'Elastic', 'fade' => 'Fade'),
+      '#disabled' => $colorbox_exist ? FALSE : TRUE,
+    );
+    $elements['colorbox']['transition_speed'] = array(
+      '#title' => t('Colorbox transition speed'),
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#default_value' => $settings['colorbox']['transition_speed'],
+      '#description' => t("Duration of transition (ms)."),
+      '#disabled' => $colorbox_exist ? FALSE : TRUE,
+    );
+
     return $elements;
   }
 
@@ -549,6 +614,8 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     );
     $bxslider_settings['image_style'] = $settings['image_style'];
     $bxslider_settings['slider_id'] = $items->getName();
+
+    $bxslider_settings['colorbox'] = $settings['colorbox'];
 
     $element = [
       '#theme' => 'bxslider',
