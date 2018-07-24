@@ -96,29 +96,29 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
 
     $elements['thumbnail_slider'] = [
       '#type' => 'fieldset',
-      '#title' => t('Thumbnail slider'),
+      '#title' => $this->t('Thumbnail slider'),
       '#weight' => 10,
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
     ];
 
     $elements['thumbnail_slider']['thumbnail_style'] = [
-      '#title' => t('Image style'),
+      '#title' => $this->t('Image style'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['thumbnail_style'],
-      '#empty_option' => t('None (original image)'),
+      '#empty_option' => $this->t('None (original image)'),
       '#options' => $image_styles,
     ];
 
     $elements['thumbnail_slider']['general'] = [
       '#type' => 'fieldset',
-      '#title' => t('General'),
+      '#title' => $this->t('General'),
       '#weight' => 1,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     ];
     $elements['thumbnail_slider']['general']['mode'] = [
-      '#title' => t('Mode'),
+      '#title' => $this->t('Mode'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['general']['mode'],
       '#options' => [
@@ -127,82 +127,82 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
       ],
     ];
     $elements['thumbnail_slider']['general']['speed'] = [
-      '#title' => t('Speed'),
+      '#title' => $this->t('Speed'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['speed'],
     ];
     $elements['thumbnail_slider']['general']['slideMargin'] = [
-      '#title' => t('slideMargin'),
+      '#title' => $this->t('slideMargin'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['slideMargin'],
     ];
     $elements['thumbnail_slider']['general']['startSlide'] = [
-      '#title' => t('startSlide'),
+      '#title' => $this->t('startSlide'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['startSlide'],
     ];
     $elements['thumbnail_slider']['general']['randomStart'] = [
       '#type' => 'checkbox',
-      '#title' => t('randomStart'),
+      '#title' => $this->t('randomStart'),
       '#default_value' => $settings['thumbnail_slider']['general']['randomStart'],
     ];
     $elements['thumbnail_slider']['general']['infiniteLoop'] = [
       '#type' => 'checkbox',
-      '#title' => t('infiniteLoop'),
+      '#title' => $this->t('infiniteLoop'),
       '#default_value' => $settings['thumbnail_slider']['general']['infiniteLoop'],
     ];
     $elements['thumbnail_slider']['general']['hideControlOnEnd'] = [
       '#type' => 'checkbox',
-      '#title' => t('hideControlOnEnd'),
+      '#title' => $this->t('hideControlOnEnd'),
       '#default_value' => $settings['thumbnail_slider']['general']['hideControlOnEnd'],
     ];
     $elements['thumbnail_slider']['general']['easing'] = [
-      '#title' => t('easing'),
+      '#title' => $this->t('easing'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['easing'],
     ];
     $elements['thumbnail_slider']['general']['captions'] = [
       '#type' => 'checkbox',
-      '#title' => t('captions'),
+      '#title' => $this->t('captions'),
       '#default_value' => $settings['thumbnail_slider']['general']['captions'],
     ];
     $elements['thumbnail_slider']['general']['ticker'] = [
       '#type' => 'checkbox',
-      '#title' => t('ticker'),
+      '#title' => $this->t('ticker'),
       '#default_value' => $settings['thumbnail_slider']['general']['ticker'],
     ];
     $elements['thumbnail_slider']['general']['tickerHover'] = [
       '#type' => 'checkbox',
-      '#title' => t('tickerHover'),
+      '#title' => $this->t('tickerHover'),
       '#default_value' => $settings['thumbnail_slider']['general']['tickerHover'],
     ];
     $elements['thumbnail_slider']['general']['adaptiveHeight'] = [
       '#type' => 'checkbox',
-      '#title' => t('adaptiveHeight'),
+      '#title' => $this->t('adaptiveHeight'),
       '#default_value' => $settings['thumbnail_slider']['general']['adaptiveHeight'],
     ];
     $elements['thumbnail_slider']['general']['adaptiveHeightSpeed'] = [
-      '#title' => t('adaptiveHeightSpeed'),
+      '#title' => $this->t('adaptiveHeightSpeed'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['adaptiveHeightSpeed'],
     ];
     $elements['thumbnail_slider']['general']['responsive'] = [
       '#type' => 'checkbox',
-      '#title' => t('responsive'),
+      '#title' => $this->t('responsive'),
       '#default_value' => $settings['thumbnail_slider']['general']['responsive'],
     ];
     $elements['thumbnail_slider']['general']['useCSS'] = [
       '#type' => 'checkbox',
-      '#title' => t('useCSS'),
+      '#title' => $this->t('useCSS'),
       '#default_value' => $settings['thumbnail_slider']['general']['useCSS'],
     ];
     $elements['thumbnail_slider']['general']['preloadImages'] = [
-      '#title' => t('preloadImages'),
+      '#title' => $this->t('preloadImages'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['general']['preloadImages'],
       '#options' => [
@@ -212,28 +212,28 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
     $elements['thumbnail_slider']['general']['preloadImages'] = [
       '#type' => 'checkbox',
-      '#title' => t('preloadImages'),
+      '#title' => $this->t('preloadImages'),
       '#default_value' => $settings['thumbnail_slider']['general']['preloadImages'],
     ];
     $elements['thumbnail_slider']['general']['swipeThreshold'] = [
-      '#title' => t('swipeThreshold'),
+      '#title' => $this->t('swipeThreshold'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['general']['swipeThreshold'],
     ];
     $elements['thumbnail_slider']['general']['oneToOneTouch'] = [
       '#type' => 'checkbox',
-      '#title' => t('oneToOneTouch'),
+      '#title' => $this->t('oneToOneTouch'),
       '#default_value' => $settings['thumbnail_slider']['general']['oneToOneTouch'],
     ];
     $elements['thumbnail_slider']['general']['preventDefaultSwipeX'] = [
       '#type' => 'checkbox',
-      '#title' => t('preventDefaultSwipeX'),
+      '#title' => $this->t('preventDefaultSwipeX'),
       '#default_value' => $settings['thumbnail_slider']['general']['preventDefaultSwipeX'],
     ];
     $elements['thumbnail_slider']['general']['preventDefaultSwipeY'] = [
       '#type' => 'checkbox',
-      '#title' => t('preventDefaultSwipeY'),
+      '#title' => $this->t('preventDefaultSwipeY'),
       '#default_value' => $settings['thumbnail_slider']['general']['preventDefaultSwipeY'],
     ];
 
@@ -244,76 +244,76 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
 
     $elements['thumbnail_slider']['controls'] = [
       '#type' => 'fieldset',
-      '#title' => t('Controls'),
+      '#title' => $this->t('Controls'),
       '#weight' => 3,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     ];
     $elements['thumbnail_slider']['controls']['controls'] = [
       '#type' => 'checkbox',
-      '#title' => t('controls'),
+      '#title' => $this->t('controls'),
       '#default_value' => $settings['thumbnail_slider']['controls']['controls'],
     ];
     $elements['thumbnail_slider']['controls']['nextText'] = [
-      '#title' => t('nextText'),
+      '#title' => $this->t('nextText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['nextText'],
     ];
     $elements['thumbnail_slider']['controls']['prevText'] = [
-      '#title' => t('prevText'),
+      '#title' => $this->t('prevText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['prevText'],
     ];
     $elements['thumbnail_slider']['controls']['autoControls'] = [
       '#type' => 'checkbox',
-      '#title' => t('autoControls'),
+      '#title' => $this->t('autoControls'),
       '#default_value' => $settings['thumbnail_slider']['controls']['autoControls'],
     ];
     $elements['thumbnail_slider']['controls']['startText'] = [
-      '#title' => t('startText'),
+      '#title' => $this->t('startText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['startText'],
     ];
     $elements['thumbnail_slider']['controls']['stopText'] = [
-      '#title' => t('stopText'),
+      '#title' => $this->t('stopText'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['controls']['stopText'],
     ];
     $elements['thumbnail_slider']['controls']['autoControlsCombine'] = [
       '#type' => 'checkbox',
-      '#title' => t('Auto'),
+      '#title' => $this->t('Auto'),
       '#default_value' => $settings['thumbnail_slider']['controls']['autoControlsCombine'],
     ];
 
     $elements['thumbnail_slider']['auto'] = [
       '#type' => 'fieldset',
-      '#title' => t('Auto'),
+      '#title' => $this->t('Auto'),
       '#weight' => 4,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     ];
     $elements['thumbnail_slider']['auto']['auto'] = [
       '#type' => 'checkbox',
-      '#title' => t('Auto'),
+      '#title' => $this->t('Auto'),
       '#default_value' => $settings['thumbnail_slider']['auto']['auto'],
     ];
     $elements['thumbnail_slider']['auto']['pause'] = [
-      '#title' => t('pause'),
+      '#title' => $this->t('pause'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['auto']['pause'],
     ];
     $elements['thumbnail_slider']['auto']['autoStart'] = [
       '#type' => 'checkbox',
-      '#title' => t('autoStart'),
+      '#title' => $this->t('autoStart'),
       '#default_value' => $settings['thumbnail_slider']['auto']['autoStart'],
     ];
     $elements['thumbnail_slider']['auto']['autoDirection'] = [
-      '#title' => t('autoDirection'),
+      '#title' => $this->t('autoDirection'),
       '#type' => 'select',
       '#default_value' => $settings['thumbnail_slider']['auto']['autoDirection'],
       '#options' => [
@@ -323,11 +323,11 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
     $elements['thumbnail_slider']['auto']['autoHover'] = [
       '#type' => 'checkbox',
-      '#title' => t('autoHover'),
+      '#title' => $this->t('autoHover'),
       '#default_value' => $settings['thumbnail_slider']['auto']['autoHover'],
     ];
     $elements['thumbnail_slider']['auto']['autoDelay'] = [
-      '#title' => t('autoDelay'),
+      '#title' => $this->t('autoDelay'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['auto']['autoDelay'],
@@ -335,25 +335,25 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
 
     $elements['thumbnail_slider']['carousel'] = [
       '#type' => 'fieldset',
-      '#title' => t('Carousel'),
+      '#title' => $this->t('Carousel'),
       '#weight' => 5,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     ];
     $elements['thumbnail_slider']['carousel']['minSlides'] = [
-      '#title' => t('minSlides'),
+      '#title' => $this->t('minSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['minSlides'],
     ];
     $elements['thumbnail_slider']['carousel']['maxSlides'] = [
-      '#title' => t('maxSlides'),
+      '#title' => $this->t('maxSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['maxSlides'],
     ];
     $elements['thumbnail_slider']['carousel']['moveSlides'] = [
-      '#title' => t('moveSlides'),
+      '#title' => $this->t('moveSlides'),
       '#type' => 'textfield',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['moveSlides'],

@@ -4,4 +4,4 @@ description: Integration BxSlider with Field Formaters.
 core: 8.x
 package: Other
 dependencies:
-  - image
+  - drupal:image
