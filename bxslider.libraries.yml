@@ -11,6 +11,7 @@ jquery.bxslider:
     - core/drupal
     - core/drupalSettings
     - core/jquery.once
+
 jquery.bxslider_ths:
   js:
     /libraries/bxslider/dist/jquery.bxslider.min.js: {}
@@ -24,3 +25,10 @@ jquery.bxslider_ths:
     - core/drupal
     - core/drupalSettings
     - core/jquery.once
+
+jquery.bxslider_custom_pager2:
+  css:
+    component:
+      css/bxslider_method2.css: {}
+  dependencies:
+    - bxslider/jquery.bxslider

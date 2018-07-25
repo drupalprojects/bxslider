@@ -31,7 +31,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
           'slideMargin' => 0,
           'startSlide' => 0,
           'randomStart' => FALSE,
-          'infiniteLoop' => TRUE,
+          'infiniteLoop' => FALSE,
           'hideControlOnEnd' => FALSE,
           'easing' => '',
           'captions' => FALSE,
@@ -95,11 +95,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     $image_styles = image_style_options(FALSE);
 
     $elements['thumbnail_slider'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Thumbnail slider'),
       '#weight' => 10,
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
+      '#open' => TRUE,
     ];
 
     $elements['thumbnail_slider']['thumbnail_style'] = [
@@ -111,11 +110,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
 
     $elements['thumbnail_slider']['general'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('General'),
       '#weight' => 1,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['thumbnail_slider']['general']['mode'] = [
       '#title' => $this->t('Mode'),
@@ -243,11 +241,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
 
     $elements['thumbnail_slider']['controls'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Controls'),
       '#weight' => 3,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['thumbnail_slider']['controls']['controls'] = [
       '#type' => 'checkbox',
@@ -290,11 +287,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
 
     $elements['thumbnail_slider']['auto'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Auto'),
       '#weight' => 4,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['thumbnail_slider']['auto']['auto'] = [
       '#type' => 'checkbox',
@@ -334,11 +330,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
 
     $elements['thumbnail_slider']['carousel'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Carousel'),
       '#weight' => 5,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['thumbnail_slider']['carousel']['minSlides'] = [
       '#title' => $this->t('minSlides'),
@@ -411,7 +406,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
 
     }
 
-    $bxslider_settings = array_merge(
+    $bxslider_settings['bxslider'] = array_merge(
       $settings['general'],
       $settings['pager'],
       $settings['controls'],
@@ -419,11 +414,11 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
       $settings['carousel']
     );
     $bxslider_settings['image_style'] = $settings['image_style'];
-    $bxslider_settings['slider_id'] = $items->getName();
+    $bxslider_settings['slider_id'] = 'bxslider-ths-' . str_replace('_', '-', $items->getName());
 
     $bxslider_settings['colorbox'] = $settings['colorbox'];
 
-    $bxslider_settings['thumbnail_slider_settings'] = array_merge(
+    $bxslider_settings['thumbnail_bxslider'] = array_merge(
       $settings['thumbnail_slider']['general'],
       $settings['thumbnail_slider']['pager'],
       $settings['thumbnail_slider']['controls'],

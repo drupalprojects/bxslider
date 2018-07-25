@@ -4,8 +4,8 @@
       <li>{{ slide.image }}</li>
     {%  endfor %}
   </ul>
-  {%  if settings.slider_settings.pagerCustom_type and settings.slider_settings.pagerCustom_type == 'thumbnail_pager_method1' %}
-    <div id="{{ settings.slider_settings.pagerCustom }}">
+  {%  if settings.bxslider.pagerCustom_type and settings.bxslider.pagerCustom_type == 'thumbnail_pager_method1' %}
+    <div class="bxslider-pager-th" id="{{ settings.bxslider.pagerCustom }}">
       {% for key, item in items %}
         <a data-slide-index="{{ key }}" href="">{{ item.slide_pagerCustom }}</a>
       {%  endfor %}

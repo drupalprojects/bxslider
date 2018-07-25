@@ -89,7 +89,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'slideMargin' => 0,
         'startSlide' => 0,
         'randomStart' => FALSE,
-        'infiniteLoop' => TRUE,
+        'infiniteLoop' => FALSE,
         'hideControlOnEnd' => TRUE,
         'easing' => '',
         'captions' => FALSE,
@@ -129,7 +129,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'autoControlsSelector' => '',
       ],
       'auto' => [
-        'auto' => TRUE,
+        'auto' => FALSE,
         'pause' => 4000,
         'autoStart' => TRUE,
         'autoDirection' => 'next',
@@ -176,11 +176,10 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     ];
 
     $elements['general'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('General'),
       '#weight' => 1,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => TRUE,
     ];
     $elements['general']['mode'] = [
       '#title' => $this->t('Mode'),
@@ -309,11 +308,10 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     ];
 
     $elements['pager'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Pager'),
       '#weight' => 2,
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
+      '#open' => FALSE,
     ];
     $elements['pager']['pager'] = [
       '#type' => 'checkbox',
@@ -356,13 +354,49 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         ],
       ],
     ];
+    $elements['pager']['pagerCustom_type_markup'] = [
+      '#markup' => '<hr>',
+    ];
+    $elements['pager']['pagerCustom_type'] = [
+      '#title' => $this->t('Custom Pager'),
+      '#type' => 'select',
+      '#default_value' => $settings['pager']['pagerCustom_type'],
+      '#options' => [
+        'none' => 'None',
+        'thumbnail_pager_method1' => 'Custom thumbnail pager - method 1',
+        'thumbnail_pager_method2' => 'Custom thumbnail pager - method 2',
+      ],
+      '#description' => $this->t('Select a predefined custom thumbnail pager.'),
+      '#states' => [
+        'enabled' => [
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $elements['pager']['pagerCustom_image_style'] = [
+      '#title' => $this->t('Custom Pager - Image style'),
+      '#type' => 'select',
+      '#default_value' => $settings['pager']['pagerCustom_image_style'],
+      '#empty_option' => $this->t('None (thumbnail)'),
+      '#options' => $image_styles,
+      '#description' => $this->t('Used only when some the "Custom Pager" option is selected.'),
+      '#states' => [
+        'enabled' => [
+          [
+            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method1']],
+            'xor',
+            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method2']],
+          ],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
 
     $elements['controls'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Controls'),
       '#weight' => 3,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['controls']['controls'] = [
       '#type' => 'checkbox',
@@ -423,11 +457,10 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     ];
 
     $elements['auto'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Auto'),
       '#weight' => 4,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['auto']['auto'] = [
       '#type' => 'checkbox',
@@ -467,11 +500,10 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     ];
 
     $elements['carousel'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Carousel'),
       '#weight' => 5,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
     ];
     $elements['carousel']['minSlides'] = [
       '#title' => $this->t('minSlides'),
@@ -501,11 +533,10 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     // $colorbox_exist = module_exists('colorbox');.
     $colorbox_exist = \Drupal::moduleHandler()->moduleExists('colorbox');
     $elements['colorbox'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Colorbox'),
       '#weight' => 11,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#open' => FALSE,
       '#description' => ($colorbox_exist) ? '' : $this->t("Please, enable the Colorbox module firstly."),
     ];
     $elements['colorbox']['enable'] = [
@@ -553,7 +584,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     ];
     if (\Drupal::moduleHandler()->moduleExists('token')) {
       $elements['colorbox']['colorbox_token_gallery'] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
         '#title' => $this->t('Replacement patterns'),
         '#theme' => 'token_tree_link',
         '#token_types' => [$form['#entity_type'], 'file'],
@@ -567,7 +598,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     }
     else {
       $elements['colorbox']['colorbox_token_gallery'] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
         '#title' => $this->t('Replacement patterns'),
         '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
         '#states' => [
@@ -607,7 +638,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     ];
     if (\Drupal::moduleHandler()->moduleExists('token')) {
       $elements['colorbox']['colorbox_token_caption'] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
         '#title' => $this->t('Replacement patterns'),
         '#theme' => 'token_tree_link',
         '#token_types' => [$form['#entity_type'], 'file'],
@@ -621,7 +652,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     }
     else {
       $elements['colorbox']['colorbox_token_caption'] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
         '#title' => $this->t('Replacement patterns'),
         '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
         '#states' => [
@@ -688,7 +719,8 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       $rendering_items[$delta]['entity'] = $items->getEntity();
     }
 
-    $bxslider_settings = array_merge(
+    // BxSlider settings must be flat (on one level).
+    $bxslider_settings['bxslider'] = array_merge(
       $settings['general'],
       $settings['pager'],
       $settings['controls'],
@@ -696,7 +728,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       $settings['carousel']
     );
     $bxslider_settings['image_style'] = $settings['image_style'];
-    $bxslider_settings['slider_id'] = $items->getName();
+    $bxslider_settings['slider_id'] = 'bxslider-' . str_replace('_', '-', $items->getName());
 
     $bxslider_settings['colorbox'] = $settings['colorbox'];
 
