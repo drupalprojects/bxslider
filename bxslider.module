@@ -184,4 +184,8 @@ function template_preprocess_bxslider_ths(&$variables) {
     }
   }
 
+  // Add additional class to a thumbnail wrapper.
+  $default_wrapper_class = !empty($variables["settings"]["thumbnail_slider"]["wrapperClass"])?$variables["settings"]["thumbnail_slider"]["wrapperClass"]:'bx-wrapper';
+  $variables['#attached']['drupalSettings']['bxslider_ths'][$variables['settings']['slider_id']]['thumbnail_slider']['wrapperClass'] = $default_wrapper_class . ' bx-wrapper__ths';
+
 }

@@ -11,7 +11,7 @@
         $('#' + slider_id, context).once(slider_id).each(function () {
 
           var slider_settings = settings.bxslider_ths[slider_id].bxslider;
-          var thumbnail_settings = settings.bxslider_ths[slider_id].thumbnail_bxslider;
+          var thumbnail_settings = settings.bxslider_ths[slider_id].thumbnail_slider;
 
           slider_settings.onSlideBefore = function ($slideElement, oldIndex, newIndex) {
             changeRealThumb(slider_id, realThumbSlider, newIndex);
@@ -37,7 +37,7 @@
 
           linkRealSliders(slider_id, realSlider, realThumbSlider);
 
-          $('#' + slider_id + ' .bxslider-ths').find('li[slideIndex="0"]').addClass("active");
+          $('#' + slider_id + ' .bxslider-ths').find('li[data-slideIndex="0"]').addClass("active");
 
           if ($('#' + slider_id + " .bxslider-ths li").length <= thumbnail_settings.maxSlides) {
             $('#' + slider_id + " .bxslider-ths .bx-next").hide();
@@ -48,18 +48,18 @@
       function linkRealSliders(slider_id, bigS, thumbS) {
         $('#' + slider_id + " ul.bxslider-ths").on("click", "a", function (event) {
           event.preventDefault();
-          var newIndex = $(this).parent().attr("slideIndex");
+          var newIndex = $(this).parent().attr("data-slideIndex");
           bigS.goToSlide(newIndex);
         });
       }
 
       function changeRealThumb(slider_id, slider, newIndex) {
 
-        var thumbnail_settings = settings.bxslider_ths[slider_id].thumbnail_bxslider;
+        var thumbnail_settings = settings.bxslider_ths[slider_id].thumbnail_slider;
         var thumbS = $('#' + slider_id + ' .bxslider-ths');
 
         thumbS.find('.active').removeClass("active");
-        thumbS.find('li[slideIndex="' + newIndex + '"]').addClass("active");
+        thumbS.find('li[data-slideIndex="' + newIndex + '"]').addClass("active");
 
         var maxSlides = thumbnail_settings.maxSlides;
         var moveSlides = thumbnail_settings.moveSlides;

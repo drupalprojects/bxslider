@@ -48,6 +48,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
           'oneToOneTouch' => TRUE,
           'preventDefaultSwipeX' => TRUE,
           'preventDefaultSwipeY' => FALSE,
+          'wrapperClass' => 'bx-wrapper',
         ],
         'pager' => [
           'pager' => FALSE,
@@ -234,6 +235,12 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
       '#title' => $this->t('preventDefaultSwipeY'),
       '#default_value' => $settings['thumbnail_slider']['general']['preventDefaultSwipeY'],
     ];
+    $elements['thumbnail_slider']['general']['wrapperClass'] = [
+      '#title' => $this->t('wrapperClass'),
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#default_value' => $settings['thumbnail_slider']['general']['wrapperClass'],
+    ];
 
     $elements['thumbnail_slider']['pager']['pager'] = [
       '#type' => 'hidden',
@@ -418,7 +425,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
 
     $bxslider_settings['colorbox'] = $settings['colorbox'];
 
-    $bxslider_settings['thumbnail_bxslider'] = array_merge(
+    $bxslider_settings['thumbnail_slider'] = array_merge(
       $settings['thumbnail_slider']['general'],
       $settings['thumbnail_slider']['pager'],
       $settings['thumbnail_slider']['controls'],

@@ -106,6 +106,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'oneToOneTouch' => TRUE,
         'preventDefaultSwipeX' => TRUE,
         'preventDefaultSwipeY' => FALSE,
+        'wrapperClass' => 'bx-wrapper',
       ],
       'pager' => [
         'pager' => TRUE,
@@ -305,6 +306,12 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       '#type' => 'checkbox',
       '#title' => $this->t('preventDefaultSwipeY'),
       '#default_value' => $settings['general']['preventDefaultSwipeY'],
+    ];
+    $elements['general']['wrapperClass'] = [
+      '#title' => $this->t('wrapperClass'),
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#default_value' => $settings['general']['wrapperClass'],
     ];
 
     $elements['pager'] = [

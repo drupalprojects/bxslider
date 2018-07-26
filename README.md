@@ -96,5 +96,3 @@ MORE
  http://stackoverflow.com/questions/19326160
  /bxslider-how-is-it-possible-to-make-thumbnails-like-a-carousel
 
- If needed integration with Views, use BxSlider - Views slideshow integration
- (https://drupal.org/project/bxslider_views_slideshow)
