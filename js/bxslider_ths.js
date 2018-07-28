@@ -56,16 +56,19 @@
       function changeRealThumb(slider_id, slider, newIndex) {
 
         var thumbnail_settings = settings.bxslider_ths[slider_id].thumbnail_slider;
-        var thumbS = $('#' + slider_id + ' .bxslider-ths');
+        var thumbS = $('#' + slider_id + ' ul.bxslider-ths');
 
         thumbS.find('.active').removeClass("active");
         thumbS.find('li[data-slideIndex="' + newIndex + '"]').addClass("active");
 
-        var maxSlides = thumbnail_settings.maxSlides;
-        var moveSlides = thumbnail_settings.moveSlides;
+        // var maxSlides = thumbnail_settings.maxSlides;
+        // var moveSlides = thumbnail_settings.moveSlides;
+        //
+        // // Seems that a number from MoveSlides become like a one slide in goToSlide() function.
+        // slider.goToSlide(Math.floor(newIndex / maxSlides) * (maxSlides / moveSlides));
 
-        // Seems that a number from MoveSlides become like a one slide in goToSlide() function.
-        slider.goToSlide(Math.floor(newIndex / maxSlides) * (maxSlides / moveSlides));
+        if(slider.getSlideCount()-newIndex>=thumbnail_settings.maxSlides)slider.goToSlide(newIndex);
+        else slider.goToSlide(slider.getSlideCount()-thumbnail_settings.maxSlides);
       }
 
     }

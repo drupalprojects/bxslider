@@ -95,4 +95,3 @@ MORE
  For development of a carousel thumbnail pager was used
  http://stackoverflow.com/questions/19326160
  /bxslider-how-is-it-possible-to-make-thumbnails-like-a-carousel
-

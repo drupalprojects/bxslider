@@ -22,6 +22,9 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
+    $bxslider_settings = parent::defaultSettings();
+    $bxslider_settings['slider']['pager']['pager'] = FALSE;
+
     return [
       'thumbnail_slider' => [
         'thumbnail_style' => 'thumbnail',
@@ -32,7 +35,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
           'startSlide' => 0,
           'randomStart' => FALSE,
           'infiniteLoop' => FALSE,
-          'hideControlOnEnd' => FALSE,
+          'hideControlOnEnd' => TRUE,
           'easing' => '',
           'captions' => FALSE,
           'ticker' => FALSE,
@@ -80,7 +83,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
           'slideWidth' => 0,
         ],
       ],
-    ] + parent::defaultSettings();
+    ] + $bxslider_settings;
   }
 
   /**
@@ -89,17 +92,16 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $elements = parent::settingsForm($form, $form_state);
     // Remove Pager options, because here is used Thumbnail image slider.
-    unset($elements['pager']);
+    unset($elements['slider']['pager']);
 
     $settings = $this->getSettings();
 
     $image_styles = image_style_options(FALSE);
 
     $elements['thumbnail_slider'] = [
-      '#type' => 'details',
+      '#type' => 'fieldset',
       '#title' => $this->t('Thumbnail slider'),
       '#weight' => 10,
-      '#open' => TRUE,
     ];
 
     $elements['thumbnail_slider']['thumbnail_style'] = [
@@ -344,19 +346,19 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     ];
     $elements['thumbnail_slider']['carousel']['minSlides'] = [
       '#title' => $this->t('minSlides'),
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['minSlides'],
     ];
     $elements['thumbnail_slider']['carousel']['maxSlides'] = [
       '#title' => $this->t('maxSlides'),
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['maxSlides'],
     ];
     $elements['thumbnail_slider']['carousel']['moveSlides'] = [
       '#title' => $this->t('moveSlides'),
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#size' => 60,
       '#default_value' => $settings['thumbnail_slider']['carousel']['moveSlides'],
     ];
@@ -414,13 +416,13 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     }
 
     $bxslider_settings['bxslider'] = array_merge(
-      $settings['general'],
-      $settings['pager'],
-      $settings['controls'],
-      $settings['auto'],
-      $settings['carousel']
+      $settings['slider']['general'],
+      $settings['slider']['pager'],
+      $settings['slider']['controls'],
+      $settings['slider']['auto'],
+      $settings['slider']['carousel']
     );
-    $bxslider_settings['image_style'] = $settings['image_style'];
+    $bxslider_settings['image_style'] = $settings['slider']['image_style'];
     $bxslider_settings['slider_id'] = 'bxslider-ths-' . str_replace('_', '-', $items->getName());
 
     $bxslider_settings['colorbox'] = $settings['colorbox'];
@@ -455,6 +457,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
     $element['#attached']['library'][] = 'bxslider/jquery.bxslider_ths';
 
     // Attach settings.
+    $this->sliderSettingsFixIntegerValues($bxslider_settings);
     $element['#attached']['drupalSettings']['bxslider_ths'][$bxslider_settings['slider_id']] = $bxslider_settings;
 
     return $element;

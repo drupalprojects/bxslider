@@ -82,66 +82,68 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
    */
   public static function defaultSettings() {
     return [
-      'image_style' => 'large',
-      'general' => [
-        'mode' => 'horizontal',
-        'speed' => 500,
-        'slideMargin' => 0,
-        'startSlide' => 0,
-        'randomStart' => FALSE,
-        'infiniteLoop' => FALSE,
-        'hideControlOnEnd' => TRUE,
-        'easing' => '',
-        'captions' => FALSE,
-        'ticker' => FALSE,
-        'tickerHover' => FALSE,
-        'adaptiveHeight' => FALSE,
-        'adaptiveHeightSpeed' => 500,
-        'video' => FALSE,
-        'responsive' => TRUE,
-        'useCSS' => TRUE,
-        'preloadImages' => 'visible',
-        'touchEnabled' => TRUE,
-        'swipeThreshold' => 50,
-        'oneToOneTouch' => TRUE,
-        'preventDefaultSwipeX' => TRUE,
-        'preventDefaultSwipeY' => FALSE,
-        'wrapperClass' => 'bx-wrapper',
-      ],
-      'pager' => [
-        'pager' => TRUE,
-        'pagerType' => 'full',
-        'pagerShortSeparator' => ' / ',
-        'pagerSelector' => '',
-        'pagerCustom_type' => 'none',
-        'pagerCustom' => 'null',
-        'pagerCustom_image_style' => 'thumbnail',
-      ],
-      'controls' => [
-        'controls' => TRUE,
-        'nextText' => 'Next',
-        'prevText' => 'Prev',
-        'nextSelector' => '',
-        'prevSelector' => '',
-        'autoControls' => FALSE,
-        'startText' => 'Start',
-        'stopText' => 'Stop',
-        'autoControlsCombine' => FALSE,
-        'autoControlsSelector' => '',
-      ],
-      'auto' => [
-        'auto' => FALSE,
-        'pause' => 4000,
-        'autoStart' => TRUE,
-        'autoDirection' => 'next',
-        'autoHover' => FALSE,
-        'autoDelay' => 0,
-      ],
-      'carousel' => [
-        'minSlides' => 1,
-        'maxSlides' => 1,
-        'moveSlides' => 0,
-        'slideWidth' => 0,
+      'slider' => [
+        'image_style' => 'large',
+        'general' => [
+          'mode' => 'horizontal',
+          'speed' => 500,
+          'slideMargin' => 0,
+          'startSlide' => 0,
+          'randomStart' => FALSE,
+          'infiniteLoop' => FALSE,
+          'hideControlOnEnd' => TRUE,
+          'easing' => '',
+          'captions' => FALSE,
+          'ticker' => FALSE,
+          'tickerHover' => FALSE,
+          'adaptiveHeight' => FALSE,
+          'adaptiveHeightSpeed' => 500,
+          'video' => FALSE,
+          'responsive' => TRUE,
+          'useCSS' => TRUE,
+          'preloadImages' => 'visible',
+          'touchEnabled' => TRUE,
+          'swipeThreshold' => 50,
+          'oneToOneTouch' => TRUE,
+          'preventDefaultSwipeX' => TRUE,
+          'preventDefaultSwipeY' => FALSE,
+          'wrapperClass' => 'bx-wrapper',
+        ],
+        'pager' => [
+          'pager' => TRUE,
+          'pagerType' => 'full',
+          'pagerShortSeparator' => ' / ',
+          'pagerSelector' => '',
+          'pagerCustom_type' => 'none',
+          'pagerCustom' => 'null',
+          'pagerCustom_image_style' => 'thumbnail',
+        ],
+        'controls' => [
+          'controls' => TRUE,
+          'nextText' => 'Next',
+          'prevText' => 'Prev',
+          'nextSelector' => '',
+          'prevSelector' => '',
+          'autoControls' => FALSE,
+          'startText' => 'Start',
+          'stopText' => 'Stop',
+          'autoControlsCombine' => FALSE,
+          'autoControlsSelector' => '',
+        ],
+        'auto' => [
+          'auto' => FALSE,
+          'pause' => 4000,
+          'autoStart' => TRUE,
+          'autoDirection' => 'next',
+          'autoHover' => FALSE,
+          'autoDelay' => 0,
+        ],
+        'carousel' => [
+          'minSlides' => 1,
+          'maxSlides' => 1,
+          'moveSlides' => 0,
+          'slideWidth' => 0,
+        ],
       ],
       'colorbox' => [
         'enable' => FALSE,
@@ -164,210 +166,216 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
 
     $image_styles = image_style_options(FALSE);
 
-    $elements['image_style'] = [
+    $elements['slider'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('BxSlider'),
+      '#weight' => 0,
+    ];
+
+    $elements['slider']['image_style'] = [
       '#title' => $this->t('Image style'),
       '#type' => 'select',
-      '#default_value' => $settings['image_style'],
+      '#default_value' => $settings['slider']['image_style'],
       '#empty_option' => $this->t('None (original image)'),
       '#options' => $image_styles,
     ];
 
-    $elements['description'] = [
+    $elements['slider']['description'] = [
       '#markup' => $this->t('Visit <a href="@field-help" target="_blank">http://bxslider.com/options</a> for more information about bxSlider options.', ['@field-help' => 'http://bxslider.com/options']),
     ];
 
-    $elements['general'] = [
+    $elements['slider']['general'] = [
       '#type' => 'details',
       '#title' => $this->t('General'),
       '#weight' => 1,
-      '#open' => TRUE,
+      '#open' => FALSE,
     ];
-    $elements['general']['mode'] = [
+    $elements['slider']['general']['mode'] = [
       '#title' => $this->t('Mode'),
       '#type' => 'select',
-      '#default_value' => $settings['general']['mode'],
+      '#default_value' => $settings['slider']['general']['mode'],
       '#options' => [
         'horizontal' => 'horizontal',
         'vertical' => 'vertical',
         'fade' => 'fade',
       ],
     ];
-    $elements['general']['speed'] = [
+    $elements['slider']['general']['speed'] = [
       '#title' => $this->t('Speed'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['speed'],
+      '#default_value' => $settings['slider']['general']['speed'],
     ];
-    $elements['general']['slideMargin'] = [
+    $elements['slider']['general']['slideMargin'] = [
       '#title' => $this->t('slideMargin'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['slideMargin'],
+      '#default_value' => $settings['slider']['general']['slideMargin'],
     ];
-    $elements['general']['startSlide'] = [
+    $elements['slider']['general']['startSlide'] = [
       '#title' => $this->t('startSlide'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['startSlide'],
+      '#default_value' => $settings['slider']['general']['startSlide'],
     ];
-    $elements['general']['randomStart'] = [
+    $elements['slider']['general']['randomStart'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('randomStart'),
-      '#default_value' => $settings['general']['randomStart'],
+      '#default_value' => $settings['slider']['general']['randomStart'],
     ];
-    $elements['general']['infiniteLoop'] = [
+    $elements['slider']['general']['infiniteLoop'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('infiniteLoop'),
-      '#default_value' => $settings['general']['infiniteLoop'],
+      '#default_value' => $settings['slider']['general']['infiniteLoop'],
     ];
-    $elements['general']['hideControlOnEnd'] = [
+    $elements['slider']['general']['hideControlOnEnd'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('hideControlOnEnd'),
-      '#default_value' => $settings['general']['hideControlOnEnd'],
+      '#default_value' => $settings['slider']['general']['hideControlOnEnd'],
     ];
-    $elements['general']['easing'] = [
+    $elements['slider']['general']['easing'] = [
       '#title' => $this->t('easing'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['easing'],
+      '#default_value' => $settings['slider']['general']['easing'],
     ];
-    $elements['general']['captions'] = [
+    $elements['slider']['general']['captions'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('captions'),
-      '#default_value' => $settings['general']['captions'],
+      '#default_value' => $settings['slider']['general']['captions'],
     ];
-    $elements['general']['ticker'] = [
+    $elements['slider']['general']['ticker'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('ticker'),
-      '#default_value' => $settings['general']['ticker'],
+      '#default_value' => $settings['slider']['general']['ticker'],
     ];
-    $elements['general']['tickerHover'] = [
+    $elements['slider']['general']['tickerHover'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('tickerHover'),
-      '#default_value' => $settings['general']['tickerHover'],
+      '#default_value' => $settings['slider']['general']['tickerHover'],
     ];
-    $elements['general']['adaptiveHeight'] = [
+    $elements['slider']['general']['adaptiveHeight'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('adaptiveHeight'),
-      '#default_value' => $settings['general']['adaptiveHeight'],
+      '#default_value' => $settings['slider']['general']['adaptiveHeight'],
     ];
-    $elements['general']['adaptiveHeightSpeed'] = [
+    $elements['slider']['general']['adaptiveHeightSpeed'] = [
       '#title' => $this->t('adaptiveHeightSpeed'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['adaptiveHeightSpeed'],
+      '#default_value' => $settings['slider']['general']['adaptiveHeightSpeed'],
     ];
-    $elements['general']['video'] = [
+    $elements['slider']['general']['video'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('video'),
-      '#default_value' => $settings['general']['video'],
+      '#default_value' => $settings['slider']['general']['video'],
     ];
-    $elements['general']['responsive'] = [
+    $elements['slider']['general']['responsive'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('responsive'),
-      '#default_value' => $settings['general']['responsive'],
+      '#default_value' => $settings['slider']['general']['responsive'],
     ];
-    $elements['general']['useCSS'] = [
+    $elements['slider']['general']['useCSS'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('useCSS'),
-      '#default_value' => $settings['general']['useCSS'],
+      '#default_value' => $settings['slider']['general']['useCSS'],
     ];
-    $elements['general']['preloadImages'] = [
+    $elements['slider']['general']['preloadImages'] = [
       '#title' => $this->t('preloadImages'),
       '#type' => 'select',
-      '#default_value' => $settings['general']['preloadImages'],
+      '#default_value' => $settings['slider']['general']['preloadImages'],
       '#options' => [
         'all' => 'all',
         'visible' => 'visible',
       ],
     ];
-    $elements['general']['preloadImages'] = [
+    $elements['slider']['general']['preloadImages'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('preloadImages'),
-      '#default_value' => $settings['general']['preloadImages'],
+      '#default_value' => $settings['slider']['general']['preloadImages'],
     ];
-    $elements['general']['swipeThreshold'] = [
+    $elements['slider']['general']['swipeThreshold'] = [
       '#title' => $this->t('swipeThreshold'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['swipeThreshold'],
+      '#default_value' => $settings['slider']['general']['swipeThreshold'],
     ];
-    $elements['general']['oneToOneTouch'] = [
+    $elements['slider']['general']['oneToOneTouch'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('oneToOneTouch'),
-      '#default_value' => $settings['general']['oneToOneTouch'],
+      '#default_value' => $settings['slider']['general']['oneToOneTouch'],
     ];
-    $elements['general']['preventDefaultSwipeX'] = [
+    $elements['slider']['general']['preventDefaultSwipeX'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('preventDefaultSwipeX'),
-      '#default_value' => $settings['general']['preventDefaultSwipeX'],
+      '#default_value' => $settings['slider']['general']['preventDefaultSwipeX'],
     ];
-    $elements['general']['preventDefaultSwipeY'] = [
+    $elements['slider']['general']['preventDefaultSwipeY'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('preventDefaultSwipeY'),
-      '#default_value' => $settings['general']['preventDefaultSwipeY'],
+      '#default_value' => $settings['slider']['general']['preventDefaultSwipeY'],
     ];
-    $elements['general']['wrapperClass'] = [
+    $elements['slider']['general']['wrapperClass'] = [
       '#title' => $this->t('wrapperClass'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['general']['wrapperClass'],
+      '#default_value' => $settings['slider']['general']['wrapperClass'],
     ];
 
-    $elements['pager'] = [
+    $elements['slider']['pager'] = [
       '#type' => 'details',
       '#title' => $this->t('Pager'),
       '#weight' => 2,
       '#open' => FALSE,
     ];
-    $elements['pager']['pager'] = [
+    $elements['slider']['pager']['pager'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('pager'),
-      '#default_value' => $settings['pager']['pager'],
+      '#default_value' => $settings['slider']['pager']['pager'],
     ];
-    $elements['pager']['pagerType'] = [
+    $elements['slider']['pager']['pagerType'] = [
       '#title' => $this->t('pagerType'),
       '#type' => 'select',
-      '#default_value' => $settings['pager']['pagerType'],
+      '#default_value' => $settings['slider']['pager']['pagerType'],
       '#options' => [
         'full' => 'full',
         'short' => 'short',
       ],
       '#states' => [
         'enabled' => [
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pager]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $elements['pager']['pagerShortSeparator'] = [
+    $elements['slider']['pager']['pagerShortSeparator'] = [
       '#title' => $this->t('pagerShortSeparator'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['pager']['pagerShortSeparator'],
+      '#default_value' => $settings['slider']['pager']['pagerShortSeparator'],
       '#states' => [
         'enabled' => [
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pager]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $elements['pager']['pagerSelector'] = [
+    $elements['slider']['pager']['pagerSelector'] = [
       '#title' => $this->t('pagerSelector'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['pager']['pagerSelector'],
+      '#default_value' => $settings['slider']['pager']['pagerSelector'],
       '#states' => [
         'enabled' => [
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pager]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $elements['pager']['pagerCustom_type_markup'] = [
+    $elements['slider']['pager']['pagerCustom_type_markup'] = [
       '#markup' => '<hr>',
     ];
-    $elements['pager']['pagerCustom_type'] = [
+    $elements['slider']['pager']['pagerCustom_type'] = [
       '#title' => $this->t('Custom Pager'),
       '#type' => 'select',
-      '#default_value' => $settings['pager']['pagerCustom_type'],
+      '#default_value' => $settings['slider']['pager']['pagerCustom_type'],
       '#options' => [
         'none' => 'None',
         'thumbnail_pager_method1' => 'Custom thumbnail pager - method 1',
@@ -376,225 +384,212 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       '#description' => $this->t('Select a predefined custom thumbnail pager.'),
       '#states' => [
         'enabled' => [
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pager]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $elements['pager']['pagerCustom_image_style'] = [
+    $elements['slider']['pager']['pagerCustom_image_style'] = [
       '#title' => $this->t('Custom Pager - Image style'),
       '#type' => 'select',
-      '#default_value' => $settings['pager']['pagerCustom_image_style'],
+      '#default_value' => $settings['slider']['pager']['pagerCustom_image_style'],
       '#empty_option' => $this->t('None (thumbnail)'),
       '#options' => $image_styles,
       '#description' => $this->t('Used only when some the "Custom Pager" option is selected.'),
       '#states' => [
         'enabled' => [
           [
-            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method1']],
+            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method1']],
             'xor',
-            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method2']],
+            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method2']],
           ],
-          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][pager][pager]"]' => ['checked' => TRUE],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pager]"]' => ['checked' => TRUE],
         ],
       ],
     ];
 
-    $elements['controls'] = [
+    $elements['slider']['controls'] = [
       '#type' => 'details',
       '#title' => $this->t('Controls'),
       '#weight' => 3,
       '#open' => FALSE,
     ];
-    $elements['controls']['controls'] = [
+    $elements['slider']['controls']['controls'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('controls'),
-      '#default_value' => $settings['controls']['controls'],
+      '#default_value' => $settings['slider']['controls']['controls'],
     ];
-    $elements['controls']['nextText'] = [
+    $elements['slider']['controls']['nextText'] = [
       '#title' => $this->t('nextText'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['nextText'],
+      '#default_value' => $settings['slider']['controls']['nextText'],
     ];
-    $elements['controls']['prevText'] = [
+    $elements['slider']['controls']['prevText'] = [
       '#title' => $this->t('prevText'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['prevText'],
+      '#default_value' => $settings['slider']['controls']['prevText'],
     ];
-    $elements['controls']['nextSelector'] = [
+    $elements['slider']['controls']['nextSelector'] = [
       '#title' => $this->t('nextSelector'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['nextSelector'],
+      '#default_value' => $settings['slider']['controls']['nextSelector'],
     ];
-    $elements['controls']['prevSelector'] = [
+    $elements['slider']['controls']['prevSelector'] = [
       '#title' => $this->t('prevSelector'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['prevSelector'],
+      '#default_value' => $settings['slider']['controls']['prevSelector'],
     ];
-    $elements['controls']['autoControls'] = [
+    $elements['slider']['controls']['autoControls'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('autoControls'),
-      '#default_value' => $settings['controls']['autoControls'],
+      '#default_value' => $settings['slider']['controls']['autoControls'],
     ];
-    $elements['controls']['startText'] = [
+    $elements['slider']['controls']['startText'] = [
       '#title' => $this->t('startText'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['startText'],
+      '#default_value' => $settings['slider']['controls']['startText'],
     ];
-    $elements['controls']['stopText'] = [
+    $elements['slider']['controls']['stopText'] = [
       '#title' => $this->t('stopText'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['stopText'],
+      '#default_value' => $settings['slider']['controls']['stopText'],
     ];
-    $elements['controls']['autoControlsCombine'] = [
+    $elements['slider']['controls']['autoControlsCombine'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Auto'),
-      '#default_value' => $settings['controls']['autoControlsCombine'],
+      '#default_value' => $settings['slider']['controls']['autoControlsCombine'],
     ];
-    $elements['controls']['autoControlsSelector'] = [
+    $elements['slider']['controls']['autoControlsSelector'] = [
       '#title' => $this->t('autoControlsSelector'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['controls']['autoControlsSelector'],
+      '#default_value' => $settings['slider']['controls']['autoControlsSelector'],
     ];
 
-    $elements['auto'] = [
+    $elements['slider']['auto'] = [
       '#type' => 'details',
       '#title' => $this->t('Auto'),
       '#weight' => 4,
       '#open' => FALSE,
     ];
-    $elements['auto']['auto'] = [
+    $elements['slider']['auto']['auto'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Auto'),
-      '#default_value' => $settings['auto']['auto'],
+      '#default_value' => $settings['slider']['auto']['auto'],
     ];
-    $elements['auto']['pause'] = [
+    $elements['slider']['auto']['pause'] = [
       '#title' => $this->t('pause'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['auto']['pause'],
+      '#default_value' => $settings['slider']['auto']['pause'],
     ];
-    $elements['auto']['autoStart'] = [
+    $elements['slider']['auto']['autoStart'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('autoStart'),
-      '#default_value' => $settings['auto']['autoStart'],
+      '#default_value' => $settings['slider']['auto']['autoStart'],
     ];
-    $elements['auto']['autoDirection'] = [
+    $elements['slider']['auto']['autoDirection'] = [
       '#title' => $this->t('autoDirection'),
       '#type' => 'select',
-      '#default_value' => $settings['auto']['autoDirection'],
+      '#default_value' => $settings['slider']['auto']['autoDirection'],
       '#options' => [
         'next' => 'next',
         'prev' => 'prev',
       ],
     ];
-    $elements['auto']['autoHover'] = [
+    $elements['slider']['auto']['autoHover'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('autoHover'),
-      '#default_value' => $settings['auto']['autoHover'],
+      '#default_value' => $settings['slider']['auto']['autoHover'],
     ];
-    $elements['auto']['autoDelay'] = [
+    $elements['slider']['auto']['autoDelay'] = [
       '#title' => $this->t('autoDelay'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['auto']['autoDelay'],
+      '#default_value' => $settings['slider']['auto']['autoDelay'],
     ];
 
-    $elements['carousel'] = [
+    $elements['slider']['carousel'] = [
       '#type' => 'details',
       '#title' => $this->t('Carousel'),
       '#weight' => 5,
       '#open' => FALSE,
     ];
-    $elements['carousel']['minSlides'] = [
+    $elements['slider']['carousel']['minSlides'] = [
       '#title' => $this->t('minSlides'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['carousel']['minSlides'],
+      '#default_value' => $settings['slider']['carousel']['minSlides'],
     ];
-    $elements['carousel']['maxSlides'] = [
+    $elements['slider']['carousel']['maxSlides'] = [
       '#title' => $this->t('maxSlides'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['carousel']['maxSlides'],
+      '#default_value' => $settings['slider']['carousel']['maxSlides'],
     ];
-    $elements['carousel']['moveSlides'] = [
+    $elements['slider']['carousel']['moveSlides'] = [
       '#title' => $this->t('moveSlides'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['carousel']['moveSlides'],
+      '#default_value' => $settings['slider']['carousel']['moveSlides'],
     ];
-    $elements['carousel']['slideWidth'] = [
+    $elements['slider']['carousel']['slideWidth'] = [
       '#title' => $this->t('slideWidth'),
       '#type' => 'textfield',
       '#size' => 60,
-      '#default_value' => $settings['carousel']['slideWidth'],
+      '#default_value' => $settings['slider']['carousel']['slideWidth'],
     ];
 
     // $colorbox_exist = module_exists('colorbox');.
     $colorbox_exist = \Drupal::moduleHandler()->moduleExists('colorbox');
     $elements['colorbox'] = [
-      '#type' => 'details',
+      '#type' => 'fieldset',
       '#title' => $this->t('Colorbox'),
       '#weight' => 11,
-      '#open' => FALSE,
-      '#description' => ($colorbox_exist) ? '' : $this->t("Please, enable the Colorbox module firstly."),
+      '#description' => ($colorbox_exist) ? $this->t('For changing Colorbox styles and other options, please visit <a href=":link">:link</a>.', [':link' => '/admin/config/media/colorbox']) : $this->t("Please, enable the Colorbox module firstly."),
     ];
-    $elements['colorbox']['enable'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Colorbox enable'),
-      '#default_value' => $settings['colorbox']['enable'],
-      '#disabled' => ($colorbox_exist) ? FALSE : TRUE,
-    ];
-    $elements['colorbox']['image_style'] = [
-      '#title' => $this->t('Colorbox Image style'),
-      '#type' => 'select',
-      '#default_value' => $settings['colorbox']['image_style'],
-      '#empty_option' => $this->t('None (original image)'),
-      '#options' => $image_styles,
-      '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    ];
-    $gallery = [
-      'none' => $this->t('No gallery'),
-      'post' => $this->t('Per post gallery'),
-      'page' => $this->t('Per page gallery'),
-      'field_post' => $this->t('Per field in post gallery'),
-      'field_page' => $this->t('Per field in page gallery'),
-      'custom' => $this->t('Custom (with tokens)'),
-    ];
-    $elements['colorbox']['colorbox_gallery'] = [
-      '#title' => $this->t('Gallery (image grouping)'),
-      '#type' => 'select',
-      '#default_value' => $this->getSetting('colorbox_gallery'),
-      '#options' => $gallery,
-      '#description' => $this->t('How Colorbox should group the image galleries.'),
-      '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    ];
-    $elements['colorbox']['colorbox_gallery_custom'] = [
-      '#title' => $this->t('Custom gallery'),
-      '#type' => 'textfield',
-      '#default_value' => $this->getSetting('colorbox_gallery_custom'),
-      '#description' => $this->t('All images on a page with the same gallery value (rel attribute) will be grouped together. It must only contain lowercase letters, numbers, and underscores.'),
-      '#required' => FALSE,
-      '#states' => [
-        'visible' => [
-          ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
-        ],
-      ],
-      '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    ];
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
-      $elements['colorbox']['colorbox_token_gallery'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Replacement patterns'),
-        '#theme' => 'token_tree_link',
-        '#token_types' => [$form['#entity_type'], 'file'],
+    if ($colorbox_exist) {
+      $elements['colorbox']['enable'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Colorbox enable'),
+        '#default_value' => $settings['colorbox']['enable'],
+        '#disabled' => ($colorbox_exist) ? FALSE : TRUE,
+      ];
+      $elements['colorbox']['image_style'] = [
+        '#title' => $this->t('Colorbox Image style'),
+        '#type' => 'select',
+        '#default_value' => $settings['colorbox']['image_style'],
+        '#empty_option' => $this->t('None (original image)'),
+        '#options' => $image_styles,
+        '#disabled' => $colorbox_exist ? FALSE : TRUE,
+      ];
+      $gallery = [
+        'none' => $this->t('No gallery'),
+        'post' => $this->t('Per post gallery'),
+        'page' => $this->t('Per page gallery'),
+        'field_post' => $this->t('Per field in post gallery'),
+        'field_page' => $this->t('Per field in page gallery'),
+        'custom' => $this->t('Custom (with tokens)'),
+      ];
+      $elements['colorbox']['colorbox_gallery'] = [
+        '#title' => $this->t('Gallery (image grouping)'),
+        '#type' => 'select',
+        '#default_value' => $this->getSetting('colorbox_gallery'),
+        '#options' => $gallery,
+        '#description' => $this->t('How Colorbox should group the image galleries.'),
+        '#disabled' => $colorbox_exist ? FALSE : TRUE,
+      ];
+      $elements['colorbox']['colorbox_gallery_custom'] = [
+        '#title' => $this->t('Custom gallery'),
+        '#type' => 'textfield',
+        '#default_value' => $this->getSetting('colorbox_gallery_custom'),
+        '#description' => $this->t('All images on a page with the same gallery value (rel attribute) will be grouped together. It must only contain lowercase letters, numbers, and underscores.'),
+        '#required' => FALSE,
         '#states' => [
           'visible' => [
             ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
@@ -602,66 +597,53 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         ],
         '#disabled' => $colorbox_exist ? FALSE : TRUE,
       ];
-    }
-    else {
-      $elements['colorbox']['colorbox_token_gallery'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Replacement patterns'),
-        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
-        '#states' => [
-          'visible' => [
-            ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
+      if (\Drupal::moduleHandler()->moduleExists('token')) {
+        $elements['colorbox']['colorbox_token_gallery'] = [
+          '#type' => 'details',
+          '#title' => $this->t('Replacement patterns'),
+          '#theme' => 'token_tree_link',
+          '#token_types' => [$form['#entity_type'], 'file'],
+          '#states' => [
+            'visible' => [
+              ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
+            ],
           ],
-        ],
+          '#disabled' => $colorbox_exist ? FALSE : TRUE,
+        ];
+      }
+      else {
+        $elements['colorbox']['colorbox_token_gallery'] = [
+          '#type' => 'details',
+          '#title' => $this->t('Replacement patterns'),
+          '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+          '#states' => [
+            'visible' => [
+              ':input[name$="[settings_edit_form][settings][colorbox][colorbox_gallery]"]' => ['value' => 'custom'],
+            ],
+          ],
+          '#disabled' => $colorbox_exist ? FALSE : TRUE,
+        ];
+      }
+      $caption = [
+        'none' => $this->t('None'),
+        'auto' => $this->t('Automatic'),
+        'title' => $this->t('Title text'),
+        'alt' => $this->t('Alt text'),
+        'entity_title' => $this->t('Content title'),
+        'custom' => $this->t('Custom (with tokens)'),
+      ];
+      $elements['colorbox']['colorbox_caption'] = [
+        '#title' => $this->t('Caption'),
+        '#type' => 'select',
+        '#default_value' => $this->getSetting('colorbox_caption'),
+        '#options' => $caption,
+        '#description' => $this->t('Automatic will use the first non-empty value out of the title, the alt text and the content title.'),
         '#disabled' => $colorbox_exist ? FALSE : TRUE,
       ];
-    }
-    $caption = [
-      'none' => $this->t('None'),
-      'auto' => $this->t('Automatic'),
-      'title' => $this->t('Title text'),
-      'alt' => $this->t('Alt text'),
-      'entity_title' => $this->t('Content title'),
-      'custom' => $this->t('Custom (with tokens)'),
-    ];
-    $elements['colorbox']['colorbox_caption'] = [
-      '#title' => $this->t('Caption'),
-      '#type' => 'select',
-      '#default_value' => $this->getSetting('colorbox_caption'),
-      '#options' => $caption,
-      '#description' => $this->t('Automatic will use the first non-empty value out of the title, the alt text and the content title.'),
-      '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    ];
-    $elements['colorbox']['colorbox_caption_custom'] = [
-      '#title' => $this->t('Custom caption'),
-      '#type' => 'textfield',
-      '#default_value' => $this->getSetting('colorbox_caption_custom'),
-      '#states' => [
-        'visible' => [
-          ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
-        ],
-      ],
-      '#disabled' => $colorbox_exist ? FALSE : TRUE,
-    ];
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
-      $elements['colorbox']['colorbox_token_caption'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Replacement patterns'),
-        '#theme' => 'token_tree_link',
-        '#token_types' => [$form['#entity_type'], 'file'],
-        '#states' => [
-          'visible' => [
-            ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
-          ],
-        ],
-        '#disabled' => $colorbox_exist ? FALSE : TRUE,
-      ];
-    }
-    else {
-      $elements['colorbox']['colorbox_token_caption'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Replacement patterns'),
-        '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+      $elements['colorbox']['colorbox_caption_custom'] = [
+        '#title' => $this->t('Custom caption'),
+        '#type' => 'textfield',
+        '#default_value' => $this->getSetting('colorbox_caption_custom'),
         '#states' => [
           'visible' => [
             ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
@@ -669,6 +651,33 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         ],
         '#disabled' => $colorbox_exist ? FALSE : TRUE,
       ];
+      if (\Drupal::moduleHandler()->moduleExists('token')) {
+        $elements['colorbox']['colorbox_token_caption'] = [
+          '#type' => 'details',
+          '#title' => $this->t('Replacement patterns'),
+          '#theme' => 'token_tree_link',
+          '#token_types' => [$form['#entity_type'], 'file'],
+          '#states' => [
+            'visible' => [
+              ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
+            ],
+          ],
+          '#disabled' => $colorbox_exist ? FALSE : TRUE,
+        ];
+      }
+      else {
+        $elements['colorbox']['colorbox_token_caption'] = [
+          '#type' => 'details',
+          '#title' => $this->t('Replacement patterns'),
+          '#description' => '<strong class="error">' . $this->t('For token support the <a href="@token_url">token module</a> must be installed.', ['@token_url' => 'http://drupal.org/project/token']) . '</strong>',
+          '#states' => [
+            'visible' => [
+              ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
+            ],
+          ],
+          '#disabled' => $colorbox_exist ? FALSE : TRUE,
+        ];
+      }
     }
 
     return $elements;
@@ -728,13 +737,13 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
 
     // BxSlider settings must be flat (on one level).
     $bxslider_settings['bxslider'] = array_merge(
-      $settings['general'],
-      $settings['pager'],
-      $settings['controls'],
-      $settings['auto'],
-      $settings['carousel']
+      $settings['slider']['general'],
+      $settings['slider']['pager'],
+      $settings['slider']['controls'],
+      $settings['slider']['auto'],
+      $settings['slider']['carousel']
     );
-    $bxslider_settings['image_style'] = $settings['image_style'];
+    $bxslider_settings['image_style'] = $settings['slider']['image_style'];
     $bxslider_settings['slider_id'] = 'bxslider-' . str_replace('_', '-', $items->getName());
 
     $bxslider_settings['colorbox'] = $settings['colorbox'];
@@ -753,9 +762,21 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
     $element['#attached']['library'][] = 'bxslider/jquery.bxslider';
 
     // Attach settings.
+    $this->sliderSettingsFixIntegerValues($bxslider_settings);
     $element['#attached']['drupalSettings']['bxslider'][$bxslider_settings['slider_id']] = $bxslider_settings;
 
     return $element;
+  }
+
+  /**
+   * Replace strings with digits to int.
+   */
+  protected function sliderSettingsFixIntegerValues(&$settings) {
+    array_walk_recursive($settings, function (&$value) {
+      if (is_numeric($value)) {
+        $value = (int) $value;
+      }
+    });
   }
 
 }

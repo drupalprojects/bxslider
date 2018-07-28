@@ -20,3 +20,12 @@ div.bx-wrapper img {
   opacity: 1;
   background-color: #ffffff;
 }
+
+.bx-wrapper__ths,
+.bxslider-pager-th {
+  margin: 0 auto;
+}
+
+.bx-wrapper {
+  box-shadow: none;
+}
