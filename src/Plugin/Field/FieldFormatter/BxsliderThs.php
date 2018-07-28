@@ -91,8 +91,8 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $elements = parent::settingsForm($form, $form_state);
-    // Remove Pager options, because here is used Thumbnail image slider.
-    unset($elements['slider']['pager']);
+    // Hide Pager options, because here is used Thumbnail image slider.
+    $elements['slider']['pager']['#access'] = FALSE;
 
     $settings = $this->getSettings();
 

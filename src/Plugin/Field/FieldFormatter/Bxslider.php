@@ -397,10 +397,9 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       '#description' => $this->t('Used only when some the "Custom Pager" option is selected.'),
       '#states' => [
         'enabled' => [
-          [
-            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method1']],
-            'xor',
-            [':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pagerCustom_type]"]' => ['value' => 'thumbnail_pager_method2']],
+          ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pagerCustom_type]"]' => [
+            ['value' => 'thumbnail_pager_method1'],
+            ['value' => 'thumbnail_pager_method2'],
           ],
           ':input[name="fields[' . $field_name . '][settings_edit_form][settings][slider][pager][pager]"]' => ['checked' => TRUE],
         ],
@@ -570,16 +569,13 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       ];
       $gallery = [
         'none' => $this->t('No gallery'),
-        'post' => $this->t('Per post gallery'),
-        'page' => $this->t('Per page gallery'),
-        'field_post' => $this->t('Per field in post gallery'),
-        'field_page' => $this->t('Per field in page gallery'),
+        'field_post' => $this->t('Per field'),
         'custom' => $this->t('Custom (with tokens)'),
       ];
       $elements['colorbox']['colorbox_gallery'] = [
         '#title' => $this->t('Gallery (image grouping)'),
         '#type' => 'select',
-        '#default_value' => $this->getSetting('colorbox_gallery'),
+        '#default_value' => $settings['colorbox']['colorbox_gallery'],
         '#options' => $gallery,
         '#description' => $this->t('How Colorbox should group the image galleries.'),
         '#disabled' => $colorbox_exist ? FALSE : TRUE,
@@ -587,7 +583,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       $elements['colorbox']['colorbox_gallery_custom'] = [
         '#title' => $this->t('Custom gallery'),
         '#type' => 'textfield',
-        '#default_value' => $this->getSetting('colorbox_gallery_custom'),
+        '#default_value' => $settings['colorbox']['colorbox_gallery_custom'],
         '#description' => $this->t('All images on a page with the same gallery value (rel attribute) will be grouped together. It must only contain lowercase letters, numbers, and underscores.'),
         '#required' => FALSE,
         '#states' => [
@@ -635,7 +631,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       $elements['colorbox']['colorbox_caption'] = [
         '#title' => $this->t('Caption'),
         '#type' => 'select',
-        '#default_value' => $this->getSetting('colorbox_caption'),
+        '#default_value' => $settings['colorbox']['colorbox_caption'],
         '#options' => $caption,
         '#description' => $this->t('Automatic will use the first non-empty value out of the title, the alt text and the content title.'),
         '#disabled' => $colorbox_exist ? FALSE : TRUE,
@@ -643,7 +639,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       $elements['colorbox']['colorbox_caption_custom'] = [
         '#title' => $this->t('Custom caption'),
         '#type' => 'textfield',
-        '#default_value' => $this->getSetting('colorbox_caption_custom'),
+        '#default_value' => $settings['colorbox']['colorbox_caption_custom'],
         '#states' => [
           'visible' => [
             ':input[name$="[settings_edit_form][settings][colorbox][colorbox_caption]"]' => ['value' => 'custom'],
