@@ -55,6 +55,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
         ],
         'pager' => [
           'pager' => FALSE,
+          'pagerType' => 'full',
+          'pagerShortSeparator' => ' / ',
+          'pagerSelector' => '',
+        // 'pagerCustom' => 'null',.
         ],
         'controls' => [
           'controls' => TRUE,
@@ -211,10 +215,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
         'visible' => 'visible',
       ],
     ];
-    $elements['thumbnail_slider']['general']['preloadImages'] = [
+    $elements['slider']['general']['touchEnabled'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('preloadImages'),
-      '#default_value' => $settings['thumbnail_slider']['general']['preloadImages'],
+      '#title' => $this->t('touchEnabled'),
+      '#default_value' => $settings['slider']['general']['touchEnabled'],
     ];
     $elements['thumbnail_slider']['general']['swipeThreshold'] = [
       '#title' => $this->t('swipeThreshold'),
@@ -392,7 +396,7 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
       return $elements;
     }
 
-    $image_style_setting = $this->getSetting('image_style');
+    $image_style_setting = $settings["thumbnail_slider"]["thumbnail_style"];
 
     // Collect cache tags to be added for each item in the field.
     $base_cache_tags = [];
@@ -414,6 +418,10 @@ class BxsliderThs extends Bxslider implements ContainerFactoryPluginInterface {
       $rendering_ths_items[] = $file->_referringItem;
 
     }
+
+    // A slider's own pager must be disabled, because for pager is used
+    // another bxslider.
+    $settings['slider']['pager']['pager'] = FALSE;
 
     $bxslider_settings['bxslider'] = array_merge(
       $settings['slider']['general'],

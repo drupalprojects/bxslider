@@ -115,7 +115,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
           'pagerShortSeparator' => ' / ',
           'pagerSelector' => '',
           'pagerCustom_type' => 'none',
-          'pagerCustom' => 'null',
+        // 'pagerCustom' => 'null',.
           'pagerCustom_image_style' => 'thumbnail',
         ],
         'controls' => [
@@ -289,10 +289,10 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
         'visible' => 'visible',
       ],
     ];
-    $elements['slider']['general']['preloadImages'] = [
+    $elements['slider']['general']['touchEnabled'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('preloadImages'),
-      '#default_value' => $settings['slider']['general']['preloadImages'],
+      '#title' => $this->t('touchEnabled'),
+      '#default_value' => $settings['slider']['general']['touchEnabled'],
     ];
     $elements['slider']['general']['swipeThreshold'] = [
       '#title' => $this->t('swipeThreshold'),
@@ -703,7 +703,7 @@ class Bxslider extends ImageFormatterBase implements ContainerFactoryPluginInter
       return $elements;
     }
 
-    $image_style_setting = $this->getSetting('image_style');
+    $image_style_setting = $settings["slider"]["image_style"];
 
     // Collect cache tags to be added for each item in the field.
     $base_cache_tags = [];
